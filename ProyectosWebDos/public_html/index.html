@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Segundo Proyecto Web UTN</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+        <script type="text/javascript" src="JavaScript/bootstrap.min.js"></script>
+        <script type="text/javascript" src="JavaScript/bootstrap.js"></script>
+        <link href="CSS/bootstrap.min.css" rel="stylesheet">
+        <link href="CSS/bootstrap.css" rel="stylesheet">
+        <link href="CSS/Estilos.css" rel="stylesheet">
+        <link rel="stylesheet" href="CSS/style.css">
+
+    </head>
+    <body class="">
+        <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-navt">
+                        <li>
+                            <div class="container">
+                                <br/>
+                                <img  src="Imagenes/Logo.png" class="imagen img-thumbnail" alt="Imagen responsive">
+                                <br/>
+                                <br/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <br/>
+        <div class="container">
+            <div id="content">
+                <ul id="tabs" class="nav nav-justified" data-tabs="tabs">
+                    <li class="active"><a href="#dashboard" data-toggle="tab">Dashboard</a></li>
+                    <li><a href="#carreras" data-toggle="tab">Carreras</a></li>
+                    <li><a href="#estudiantes" data-toggle="tab">Estudiantes</a></li>
+                    <li><a href="#usuarios" data-toggle="tab">Usuarios</a></li>
+                    <li><a href="#acercade" data-toggle="tab">Acerca de..</a></li>
+                </ul>
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="dashboard">
+                        <h1>Dashboard</h1>
+                        <p>red red red red red red</p>
+                    </div>
+                    <div class="tab-pane" id="carreras"> 
+                        <div class="container"> 
+                            <div class="row"> 
+                                <div class="col-xs-12"> 
+                                    <h3>Lista de carreras</h3> 
+                                    <h5>Opciones</h5> <div class="btn-group">
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button> 
+                                        <div class="modal fade" id="nuevacarrera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X;</button>
+                                                        <h4>Agregar carrera</h4>
+                                                        <div class="modal-body">
+                                                            <form role="form">
+                                                                <div class="form-group">
+                                                                    <label for="codigoCarrera">Código de la carrera:</label>
+                                                                    <input type="text" class="form-control" id="codigoCarrera"
+                                                                           placeholder="Codigo de la carrera">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="nombrecarrera">Nombre de la carrera:</label>
+                                                                    <input type="text" class="form-control" id="nombrecarrera" 
+                                                                           placeholder="Nombre de la carrera">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ejemplo_archivo_1">Adjuntar un archivo</label>
+                                                                    <input type="file" id="ejemplo_archivo_1">
+                                                                    <p class="help-block">Ejemplo de texto de ayuda.</p>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn btn-primary">Registrar</button>
+                                                            <button type="button" data-dismiss="modal" class="btn btn-primary">Salir</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-danger btn-sm">Eliminar</button> 
+                                        <button class="btn btn-warning btn-sm">Editar</button> 
+                                        <button class="btn btn-info btn-sm">Ver detalles</button>  
+                                    </div> 
+                                </div> 
+                            </div> </div> 
+                        <br/>
+                        <div id="tablaCarreras" class="container"> 
+                            <div class="row"> 
+                                <div class="col-xs-8"> 
+                                    <div class="table-responsive"> 
+                                        <table class="table table table-hover table-bordered table-striped table-condensed"> 
+                                            <thead> 
+                                                <tr class="bg-success"> 
+                                                    <th>Código</th> 
+                                                    <th>Nombre</th> 
+                                                    <th>Sede</th> </tr> 
+                                            </thead> 
+                                            <tbody> 
+                                                <tr> 
+                                                    <td>ISW</td> 
+                                                    <td>Ingenieria en Sistemas</td> 
+                                                    <td>San Carlos</td> 
+                                                </tr> 
+                                                <tr> <td>CONTI</td> 
+                                                    <td>Contabilidad y Finanzas</td> 
+                                                    <td>Central</td> 
+                                                </tr> 
+                                                <tr> <td>ADMAD</td> 
+                                                    <td>Administración Aduanera</td> 
+                                                    <td>Pacífico</td> 
+                                                </tr> </tbody> 
+                                        </table> </div> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div>
+                    <div class="tab-pane" id="estudiantes">
+                        <div class="container"> 
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <h3>Lista de estudiantes</h3>
+                                    <h5>Opciones</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-success btn-sm">Nuevo</button>
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                        <button class="btn btn-warning btn-sm">Editar</button>
+                                        <button class="btn btn-info btn-sm">Ver detalles</button>
+                                    </div>
+                                </div>
+                            </div>	
+                        </div>
+                        <br/>
+                        <div id="tablaEstudiantes" class="container">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="table-responsive">
+                                        <table class="table table table-hover table-bordered table-striped table-condensed">
+                                            <thead >
+                                                <tr id="0" class="bg-success">
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Edad</th>
+                                                    <th>Carrera</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1-0568-0098</td>
+                                                    <td>Marcos</td>
+                                                    <td>González</td>
+                                                    <td>18</td>
+                                                    <td>Ingenieria en Software</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2-0549-0349</td>
+                                                    <td>Pedro</td>
+                                                    <td>Picapiedra</td>
+                                                    <td>19</td>
+                                                    <td>Contabilidad y finanzas</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3-0987-0231</td>
+                                                    <td>Pablo</td>
+                                                    <td>Mármol</td>
+                                                    <td>21</td>
+                                                    <td>Administración Aduanera</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3-0563-0231</td>
+                                                    <td>Carlos</td>
+                                                    <td>Ezquivel</td>
+                                                    <td>21</td>
+                                                    <td>Administración Aduanera</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="usuarios">
+                        <div class="container"> 
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <h3>Lista de usuarios</h3>
+                                    <h5>Opciones</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-success btn-sm">Nuevo</button>
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                        <button class="btn btn-warning btn-sm">Editar</button>
+                                        <button class="btn btn-info btn-sm">Ver detalles</button>
+                                    </div>
+                                </div>
+                            </div>	
+                        </div>
+                        <br/>
+                        <div id="tablaUsuarios" class="container">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="table-responsive">
+                                        <table class="table table table-hover table-bordered table-striped table-condensed">
+                                            <thead >
+                                                <tr id="0" class="bg-success">
+                                                    <th>Cédula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Edad</th>
+                                                    <th>Privilegios</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>2-0691-0083</td>
+                                                    <td>Ignacio</td>
+                                                    <td>Valerio Vega</td>
+                                                    <td>23</td>
+                                                    <td>Administrador</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2-0549-0349</td>
+                                                    <td>Pedro</td>
+                                                    <td>Picapiedra</td>
+                                                    <td>19</td>
+                                                    <td>Administrador</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3-0987-0231</td>
+                                                    <td>Pablo</td>
+                                                    <td>Mármol</td>
+                                                    <td>21</td>
+                                                    <td>Administrador</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3-0563-0231</td>
+                                                    <td>Carlos</td>
+                                                    <td>Ezquivel</td>
+                                                    <td>21</td>
+                                                    <td>Administrador</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="acercade">
+                        <h1>Acerca de...</h1>
+                        <p>blue blue blue blue blue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $('#tabs').tab();
+            });
+        </script> 
+    </body>
+</html>
