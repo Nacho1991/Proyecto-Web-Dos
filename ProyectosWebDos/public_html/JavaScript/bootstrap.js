@@ -13,7 +13,6 @@ $(function() {
         });
     }
     $.mostrarListaDeCarreras = function() {
-        $.limpiarCamposDelFormulario();
         //guardamos en una variable la cantidad de contactos y el cuerpo de la
         //tabla en la que mostraremos la lista (agregando filas con jQuery)
         var iTotalCarreras = localStorage.length;
@@ -26,8 +25,8 @@ $(function() {
             for (var iCarrera = 0; iCarrera < iTotalCarreras; iCarrera++) {
                 //guardamos en variables el código,nombre y sede de la carrera del localStorage
 
-                var srtCodigo = localStorage.key(iCarrera),
-                        srtDatos = localStorage.getItem(localStorage.key(iCarrera));
+                var srtCodigo = localStorage.key(iCarrera);
+                var srtDatos = localStorage.getItem(localStorage.key(iCarrera));
                 //agregamos una nueva fila con los datos de la carrera
                 $objCuerpoTablaCarreras.append(
                         $('<tr>').append(
@@ -151,59 +150,16 @@ $(function() {
         });
     }
     $.mostrarListaDeEstudiante = function() {
-        $.limpiarCamposDelFormulario();
         //guardamos en una variable la cantidad de contactos y el cuerpo de la
         //tabla en la que mostraremos la lista (agregando filas con jQuery)
-        var iTotalEstudiantes = localStorage.length;
         var $objCuerpoTablaEstudiantes = $('#tblTablaEstudiantes').find('tbody');
         //vaciamos el cuerpo de la tabla
         $objCuerpoTablaEstudiantes.empty();
         //hay carreras almacenados?
-        if (iTotalEstudiantes > 0) {
-            //recorremos la lista de carreras (los items almacenados en localStorage)
-            for (var iEstudiante = 0; iEstudiante < iTotalEstudiantes; iEstudiante++) {
-                //guardamos en variables el código,nombre y sede de la carrera del localStorage
-
-                var srtCedula = localStorage.key(iEstudiante),
-                        srtDatos = localStorage.getItem(localStorage.key(iEstudiante));
-                //agregamos una nueva fila con los datos de la carrera
-                $objCuerpoTablaEstudiantes.append(
-                        $('<tr>').append(
-                        $('<td>', {//fila con el codigo
-                            text: objetoDatosEstudiante.cedulaEstudiante,
-                            align: 'left'
-
-                        }),
-                        $('<td>', {//fila con la carrera
-                            text: objetoDatosEstudiante.nombreEstudiante,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila con la sede
-                            text: objetoDatosEstudiante.apellidosEstudiante,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila con la sede
-                            text: objetoDatosEstudiante.carreraEstudiante,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila para las opciones
-                            align: 'left',
-                            width: 60
-                        }).append(
-                        //agregamos a la fila el boton
-                        $('<input>', {
-                            type: 'button',
-                            class: 'clsEliminarEstudiante',
-                            value: 'Eliminar',
-                        }).data('estudianteEliminar', srtCedula) //por medio del metodo
-                        //data almacenamos en el boton el numero que debemos eliminar
-                        //(esto no sera visible, es un truquillo interesante)
-                        )
-                        )
-                        );
-            }
-            //no hay carreras almacenados
-        } else {
+        var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
+        //Se valida si el objeto se encuentra vacio
+        if (vectorEstudiantes === null)
+        {
             //agregamos una fila con un mensaje indicando que no hay carreras
             $objCuerpoTablaEstudiantes.append(
                     $('<tr>').append(
@@ -215,6 +171,52 @@ $(function() {
                     )
                     );
         }
+        
+        else if (vectorEstudiantes.length > 0) {
+            //recorremos la lista de carreras (los items almacenados en localStorage)
+            for (var pos = 0; pos < vectorEstudiantes.length; pos++) {
+                //guardamos en variables el código,nombre y sede de la carrera del localStorage
+                var datos = JSON.stringify(vectorEstudiantes[pos]);
+                var result = datos.split();
+
+                //agregamos una nueva fila con los datos de la carrera
+                $objCuerpoTablaEstudiantes.append(
+                        $('<tr>').append(
+                        $('<td>', {//fila con el codigo
+                            text: datos[0],
+                            align: 'left'
+
+                        }),
+                        $('<td>', {//fila con la carrera
+                            text: datos[1],
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila con la sede
+                            text: datos[2],
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila con la sede
+                            text: datos[3],
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila para las opciones
+                            align: 'left',
+                            width: 60
+                        }).append(
+                        //agregamos a la fila el boton
+                        $('<input>', {
+                            type: 'button',
+                            class: 'clsEliminarEstudiante',
+                            value: 'Eliminar'
+                        }).data('estudianteEliminar', datos[0]) //por medio del metodo
+                        //data almacenamos en el boton el numero que debemos eliminar
+                        //(esto no sera visible, es un truquillo interesante)
+                        )
+                        )
+                        );
+            }
+            //no hay carreras almacenados
+        }
     };
     //funcion para limpiar los campos del formulario
     $.limpiarCamposDelFormulario = function() {
@@ -225,6 +227,28 @@ $(function() {
         $('#txtCarreraEstudiante').val('');
     };
 
+    function prepararEnlace() {
+//        $("#btnAgregarEstudiante").bind("click", function() {
+//            my_alert('text 2');
+//        });
+        $("#btnAgregarEstudiante").click(function() {
+            my_alert('text 2');
+            //saveStudent();
+        });
+    }
+
+    function my_alert(text) {
+        alert(text);
+    }
+
+    /*function deleteStudent(element) {
+     if (confirm('Are you sure you want to delete user')) {
+     alert('User with name: ' + element.value + ' was deleted');
+     document.location.href = 'index_success.html';
+     } else {
+     document.location.href = 'index.html';
+     }
+     }*/
     //evento submit del formulario
     $('#frmAgregarEstudiante').on('submit', function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
@@ -248,8 +272,12 @@ $(function() {
                 apellidosEstudiante: strApellidosEstudiante,
                 carreraEstudiante: strCarreraEstudiante
             };
-            var datosEstudianteString = JSON.stringify(objetoDatosEstudiante);
-            localStorage.setItem('Estudiante', datosEstudianteString);
+            var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
+            if (vectorEstudiantes === null) {
+                vectorEstudiantes = [];
+            }
+            vectorEstudiantes.push(objetoDatosEstudiante);
+            localStorage.setItem('Estudiante', JSON.stringify(vectorEstudiantes));
             //cargamos en el cuerpo de la tabla la lista de contactos
             $.mostrarListaDeEstudiante();
             //limpiamos el formulario
