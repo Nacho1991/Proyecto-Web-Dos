@@ -176,27 +176,24 @@ $(function() {
             //recorremos la lista de carreras (los items almacenados en localStorage)
             for (var pos = 0; pos < vectorEstudiantes.length; pos++) {
                 //guardamos en variables el código,nombre y sede de la carrera del localStorage
-                var datos = JSON.stringify(vectorEstudiantes[pos]);
-                var result = datos.split();
-
                 //agregamos una nueva fila con los datos de la carrera
                 $objCuerpoTablaEstudiantes.append(
                         $('<tr>').append(
                         $('<td>', {//fila con el codigo
-                            text: datos[0],
+                            text: vectorEstudiantes[pos].cedulaEstudiante,
                             align: 'left'
 
                         }),
                         $('<td>', {//fila con la carrera
-                            text: datos[1],
+                            text: vectorEstudiantes[pos].nombreEstudiante,
                             align: 'left'
                         }),
                         $('<td>', {//fila con la sede
-                            text: datos[2],
+                            text: vectorEstudiantes[pos].apellidosEstudiante,
                             align: 'left'
                         }),
                         $('<td>', {//fila con la sede
-                            text: datos[3],
+                            text: vectorEstudiantes[pos].carreraEstudiante,
                             align: 'left'
                         }),
                         $('<td>', {//fila para las opciones
@@ -208,7 +205,7 @@ $(function() {
                             type: 'button',
                             class: 'clsEliminarEstudiante',
                             value: 'Eliminar'
-                        }).data('estudianteEliminar', datos[0]) //por medio del metodo
+                        }).data('estudianteEliminar', vectorEstudiantes.cedulaEstudiante) //por medio del metodo
                         //data almacenamos en el boton el numero que debemos eliminar
                         //(esto no sera visible, es un truquillo interesante)
                         )
