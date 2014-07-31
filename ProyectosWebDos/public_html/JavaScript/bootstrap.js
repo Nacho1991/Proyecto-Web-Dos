@@ -221,17 +221,34 @@ $(function() {
                                 align: 'left'
                             }),
                             $('<td>', {//fila para las opciones
-                                align: 'left',
-                                width: 60
+                                align: 'center',
+                                width: 250
                             }).append(
                             //agregamos a la fila el boton
                             $('<input>', {
                                 type: 'button',
                                 class: 'clsEliminarEstudiante',
-                                value: 'Eliminar'
-                            }) //por medio del metodo
-                            //data almacenamos en el boton el numero que debemos eliminar
-                            //(esto no sera visible, es un truquillo interesante)
+                                value: 'Eliminar',
+                                id: vectorEstudiantes[pos].cedulaEstudiante
+                            })
+                            )
+                            .append(
+                            //agregamos a la fila el boton
+                            $('<input>', {
+                                type: 'button',
+                                class: 'clsDetallesEstudiante',
+                                value: 'Ver detalles',
+                                id: vectorEstudiantes[pos].cedulaEstudiante
+                            })
+                            )
+                            .append(
+                            //agregamos a la fila el boton
+                            $('<input>', {
+                                type: 'button',
+                                class: 'clsModificarEstudiante',
+                                value: 'Modificar',
+                                id: vectorEstudiantes[pos].cedulaEstudiante
+                            })
                             )
                             )
                             );
@@ -318,7 +335,11 @@ $(function() {
     //clic en el boton para eliminar una carrera
     //se usa live en vez de on, porque el boton se creo en tiempo de ejecucion
     $('.clsEliminarEstudiante').live('click', function() {
-        debugger;
+        var eliminarEstudiante = JSON.parse(localStorage.getItem('Estudiante'));
+        for (var pos = 0; pos < eliminarEstudiante.length; pos++)
+        {
+            var id = document.getElementById(eliminarEstudiante[pos].cedulaEstudiante);
+        }
         $.eliminarEstudiante('1');
 
     });
