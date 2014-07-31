@@ -1,4 +1,3 @@
-
 var objetoDatosCarrera;
 var objetoDatosEstudiante;
 var objetoDatosUsuario;
@@ -8,39 +7,49 @@ $(function() {
     //verificamos si el navegador soporta localStorage
     if (!localStorage) {
         setTimeout(function() {
-            alert('Lo siento, pero su navegador no soporta localStorage.' +
-                    'No podrá utilizar la agenda :(');
+            alert('Lo sentimos, su navegador no soporta localStorage.' +
+                    'No se podrá utilizar la página :(');
         });
     }
     $.mostrarListaDeCarreras = function() {
-        //guardamos en una variable la cantidad de contactos y el cuerpo de la
         //tabla en la que mostraremos la lista (agregando filas con jQuery)
-        var iTotalCarreras = localStorage.length;
         var $objCuerpoTablaCarreras = $('#tblTablaCarreras').find('tbody');
         //vaciamos el cuerpo de la tabla
         $objCuerpoTablaCarreras.empty();
         //hay carreras almacenados?
-        if (iTotalCarreras > 0) {
+        var vectorCarreras = JSON.parse(localStorage.getItem('Carrera'));
+        //Se valida si el objeto se encuentra vacio
+        if (vectorCarreras === null)
+        {
+            //agregamos una fila con un mensaje indicando que no hay carreras
+            $objCuerpoTablaCarreras.append(
+                    $('<tr>').append(
+                    $('<td>', {
+                        text: 'No se han registrado carreras',
+                        colspan: 5,
+                        align: 'center'
+                    })
+                    )
+                    );
+        }
+        else if (vectorCarreras.length > 0) {
             //recorremos la lista de carreras (los items almacenados en localStorage)
-            for (var iCarrera = 0; iCarrera < iTotalCarreras; iCarrera++) {
+            for (var pos = 0; pos < vectorCarreras.length; pos++) {
                 //guardamos en variables el código,nombre y sede de la carrera del localStorage
-
-                var srtCodigo = localStorage.key(iCarrera);
-                var srtDatos = localStorage.getItem(localStorage.key(iCarrera));
                 //agregamos una nueva fila con los datos de la carrera
                 $objCuerpoTablaCarreras.append(
                         $('<tr>').append(
                         $('<td>', {//fila con el codigo
-                            text: objetoDatosCarrera.codCarrera,
+                            text: vectorCarreras[pos].codigoCarrera,
                             align: 'left'
 
                         }),
                         $('<td>', {//fila con la carrera
-                            text: objetoDatosCarrera.nombreCarrera,
+                            text: vectorCarreras[pos].nombreCarrera,
                             align: 'left'
                         }),
                         $('<td>', {//fila con la sede
-                            text: objetoDatosCarrera.Sede,
+                            text: vectorCarreras[pos].sede,
                             align: 'left'
                         }),
                         $('<td>', {//fila para las opciones
@@ -51,8 +60,8 @@ $(function() {
                         $('<input>', {
                             type: 'button',
                             class: 'clsEliminarCarrera',
-                            value: 'Eliminar',
-                        }).data('carreraEliminar', srtCodigo) //por medio del metodo
+                            value: 'Eliminar'
+                        }).data('carreraEliminar', vectorCarreras.codCarrera) //por medio del metodo
                         //data almacenamos en el boton el numero que debemos eliminar
                         //(esto no sera visible, es un truquillo interesante)
                         )
@@ -60,21 +69,10 @@ $(function() {
                         );
             }
             //no hay carreras almacenados
-        } else {
-            //agregamos una fila con un mensaje indicando que no hay carreras
-            $objCuerpoTablaCarreras.append(
-                    $('<tr>').append(
-                    $('<td>', {
-                        text: 'No se han registrado carreras',
-                        colspan: 4,
-                        align: 'center'
-                    })
-                    )
-                    );
         }
     };
     //funcion para limpiar los campos del formulario
-    $.limpiarCamposDelFormulario = function() {
+    $.limpiarCamposDelFormularioCarrera = function() {
         //limpiamos el contenido de los campos de texto y la enfocamos
         $('#txtCodCarrera').val('').focus();
         $('#txtNombreCarrera').val('');
@@ -86,32 +84,36 @@ $(function() {
         //evitamos que el form se envie (para que no recargue la pagina)
         eEvento.preventDefault();
         //obtenemos una "copia" de los campos de texto
-        var $txtCodCarrera = $('#txtCodCarrera');
+        var $txtCodigoCarrera = $('#txtCodCarrera');
         var $txtNombreCarrera = $('#txtNombreCarrera');
         var $txtSede = $('#txtSede');
         //verificamos que los datos no esten vacios
         //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
-        if ($.trim($txtCodCarrera.val()) != '' && $.trim($txtNombreCarrera.val()) != '' && $.trim($txtSede.val()) != '') {
+        if ($.trim($txtCodigoCarrera.val()) != '' && $.trim($txtNombreCarrera.val()) != '' && $.trim($txtSede.val())) {
             //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
-            var strCodCarrera = $.trim($txtCodCarrera.val());
+            var strCodigoCarrera = $.trim($txtCodigoCarrera.val());
             var strNombreCarrera = $.trim($txtNombreCarrera.val());
             var strSede = $.trim($txtSede.val());
             objetoDatosCarrera = {
-                codCarrera: strCodCarrera,
+                codigoCarrera: strCodigoCarrera,
                 nombreCarrera: strNombreCarrera,
-                Sede: strSede
+                sede: strSede
             };
-            var datosCarreraString = JSON.stringify(objetoDatosCarrera);
-            localStorage.setItem('Carreras', datosCarreraString);
+            var vectorCarrera = JSON.parse(localStorage.getItem('Carrera'));
+            if (vectorCarrera === null) {
+                vectorCarrera = [];
+            }
+            vectorCarrera.push(objetoDatosCarrera);
+            localStorage.setItem('Carrera', JSON.stringify(vectorCarrera));
             //cargamos en el cuerpo de la tabla la lista de contactos
             $.mostrarListaDeCarreras();
             //limpiamos el formulario
-            $.limpiarCamposDelFormulario();
+            $.limpiarCamposDelFormularioCarrera();
         } else {
             //en caso de que algun campo este vacio
             alert('Faltan datos importantes, por favor corrija para continuar.');
             //enfocamos el campo para el código
-            $txtCodCarrera.val('');
+            $txtCodigoCarrera.val('');
             $txtNombreCarrera.val('');
             $txtSede.val('');
         }
@@ -150,7 +152,6 @@ $(function() {
         });
     }
     $.mostrarListaDeEstudiante = function() {
-        //guardamos en una variable la cantidad de contactos y el cuerpo de la
         //tabla en la que mostraremos la lista (agregando filas con jQuery)
         var $objCuerpoTablaEstudiantes = $('#tblTablaEstudiantes').find('tbody');
         //vaciamos el cuerpo de la tabla
@@ -158,6 +159,7 @@ $(function() {
         //hay carreras almacenados?
         var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
         //Se valida si el objeto se encuentra vacio
+        debugger;
         if (vectorEstudiantes === null)
         {
             //agregamos una fila con un mensaje indicando que no hay carreras
@@ -171,7 +173,6 @@ $(function() {
                     )
                     );
         }
-        
         else if (vectorEstudiantes.length > 0) {
             //recorremos la lista de carreras (los items almacenados en localStorage)
             for (var pos = 0; pos < vectorEstudiantes.length; pos++) {
@@ -212,11 +213,10 @@ $(function() {
                         )
                         );
             }
-            //no hay carreras almacenados
         }
     };
     //funcion para limpiar los campos del formulario
-    $.limpiarCamposDelFormulario = function() {
+    $.limpiarCamposDelFormularioEstudiante = function() {
         //limpiamos el contenido de los campos de texto y la enfocamos
         $('#txtCedulaEstudiante').val('').focus();
         $('#txtNombreEstudiante').val('');
@@ -278,7 +278,7 @@ $(function() {
             //cargamos en el cuerpo de la tabla la lista de contactos
             $.mostrarListaDeEstudiante();
             //limpiamos el formulario
-            $.limpiarCamposDelFormulario();
+            $.limpiarCamposDelFormularioEstudiante();
         } else {
             //en caso de que algun campo este vacio
             alert('Faltan datos importantes, por favor corrija para continuar.');
@@ -306,6 +306,185 @@ $(function() {
     //cuando la pagina carga mostramos la lista de carreras.
     $.mostrarListaDeEstudiante();
 });
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+////////////Funcion Agregar Usuarios////////////
+////////////////////////////////////////////////
+///////////////////////////////////////////////
+$(function() {
+    $.mostrarListaDeUsuarios = function() {
+        //tabla en la que mostraremos la lista (agregando filas con jQuery)
+        var $objCuerpoTablaUsuarios = $('#tblTablaUsuarios').find('tbody');
+        //vaciamos el cuerpo de la tabla
+        $objCuerpoTablaUsuarios.empty();
+        //hay carreras almacenados?
+        var vectorUsuarios = JSON.parse(localStorage.getItem('Usuario'));
+        //Se valida si el objeto se encuentra vacio
+        if (vectorUsuarios === null)
+        {
+            //agregamos una fila con un mensaje indicando que no hay carreras
+            $objCuerpoTablaUsuarios.append(
+                    $('<tr>').append(
+                    $('<td>', {
+                        text: 'No se han registrado usuarios',
+                        colspan: 6,
+                        align: 'center'
+                    })
+                    )
+                    );
+        }
+        else if (vectorUsuarios.length > 0) {
+            //recorremos la lista de carreras (los items almacenados en localStorage)
+            for (var pos = 0; pos < vectorUsuarios.length; pos++) {
+                //guardamos en variables el código,nombre y sede de la carrera del localStorage
+                //agregamos una nueva fila con los datos de la carrera
+                $objCuerpoTablaUsuarios.append(
+                        $('<tr>').append(
+                        $('<td>', {//fila con el codigo
+                            text: vectorUsuarios[pos].cedulaUsuario,
+                            align: 'left'
+
+                        }),
+                        $('<td>', {//fila con la carrera
+                            text: vectorUsuarios[pos].nombreUsuario,
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila con la sede
+                            text: vectorUsuarios[pos].apellidosUsuario,
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila con la sede
+                            text: vectorUsuarios[pos].edadUsuario,
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila con la sede
+                            text: vectorUsuarios[pos].privilegiosUsuario,
+                            align: 'left'
+                        }),
+                        $('<td>', {//fila para las opciones
+                            align: 'left',
+                            width: 60
+                        }).append(
+                        //agregamos a la fila el boton
+                        $('<input>', {
+                            type: 'button',
+                            class: 'clsEliminarUsuario',
+                            value: 'Eliminar'
+                        }).data('usuarioEliminar', vectorUsuarios[pos].cedulaEstudiante) //por medio del metodo
+                        //data almacenamos en el boton el numero que debemos eliminar
+                        //(esto no sera visible, es un truquillo interesante)
+                        )
+                        )
+                        );
+            }
+        }
+    };
+    //funcion para limpiar los campos del formulario
+    $.limpiarCamposDelFormularioUsuario = function() {
+        //limpiamos el contenido de los campos de texto y la enfocamos
+        $('#txtCedulaUsuario').val('').focus();
+        $('#txtNombreUsuario').val('');
+        $('#txtApellidosUsuario').val('');
+        $('#txtEdadUsuario').val('');
+        $('#txtPrivilegiosUsuario').val('');
+    };
+
+    function prepararEnlace() {
+//        $("#btnAgregarEstudiante").bind("click", function() {
+//            my_alert('text 2');
+//        });
+        $("#btnAgregarEstudiante").click(function() {
+            my_alert('text 2');
+            //saveStudent();
+        });
+    }
+
+    function my_alert(text) {
+        alert(text);
+    }
+
+    /*function deleteStudent(element) {
+     if (confirm('Are you sure you want to delete user')) {
+     alert('User with name: ' + element.value + ' was deleted');
+     document.location.href = 'index_success.html';
+     } else {
+     document.location.href = 'index.html';
+     }
+     }*/
+    //evento submit del formulario
+    $('#frmAgregarUsuario').on('submit', function(eEvento) {
+        //evitamos que el form se envie (para que no recargue la pagina)
+        eEvento.preventDefault();
+        //obtenemos una "copia" de los campos de texto
+        var $txtCedulaUsuario = $('#txtCedulaUsuario');
+        var $txtNombreUsuario = $('#txtNombreUsuario');
+        var $txtApellidosUsuario = $('#txtApellidosUsuario');
+        var $txtEdadUsuario = $('#txtEdadUsuario');
+        var $txtPrivilegiosUsuario = $('#txtPrivilegiosUsuario');
+        //verificamos que los datos no esten vacios
+        //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
+        if ($.trim($txtCedulaUsuario.val()) != '' && $.trim($txtNombreUsuario.val()) != '' && $.trim($txtApellidosUsuario.val()) != '' && $.trim($txtEdadUsuario.val() != '') && $.trim($txtPrivilegiosUsuario.val() != '')) {
+            //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
+            var strCedulaUsuario = $.trim($txtCedulaUsuario.val());
+            var strNombreUsuario = $.trim($txtNombreUsuario.val());
+            var strApellidosUsuario = $.trim($txtApellidosUsuario.val());
+            var strEdadUsuario = $.trim($txtEdadUsuario.val());
+            var strPrivilegiosUsuario = $.trim($txtPrivilegiosUsuario.val());
+            objetoDatosUsuario = {
+                cedulaUsuario: strCedulaUsuario,
+                nombreUsuario: strNombreUsuario,
+                apellidosUsuario: strApellidosUsuario,
+                edadUsuario: strEdadUsuario,
+                privilegiosUsuario: strPrivilegiosUsuario
+            };
+            var vectorUsuarios = JSON.parse(localStorage.getItem('Usuario'));
+            if (vectorUsuarios === null) {
+                vectorUsuarios = [];
+            }
+            vectorUsuarios.push(objetoDatosUsuario);
+            localStorage.setItem('Usuario', JSON.stringify(vectorUsuarios));
+            //cargamos en el cuerpo de la tabla la lista de contactos
+            $.mostrarListaDeUsuarios();
+            //limpiamos el formulario
+            $.limpiarCamposDelFormularioUsuario();
+        } else {
+            //en caso de que algun campo este vacio
+            alert('Faltan datos importantes, por favor corrija para continuar.');
+            //enfocamos el campo para el código
+            $txtCedulaUsuario.val('');
+            $txtNombreUsuario.val('');
+            $txtApellidosUsuario.val('');
+            $txtEdadUsuario.val('');
+            $txtPrivilegiosUsuario.val('');
+        }
+    });
+
+    //clic en el boton para eliminar una carrera
+    //se usa live en vez de on, porque el boton se creo en tiempo de ejecucion
+    $('.clsEliminarUsuario').live('click', function() {
+        //obtenemos el código que se va a eliminar (esta almacenado en data)
+        var strEstudianteEliminar = $(this).data('usuarioEliminar');
+        if (confirm('¿Desea eliminar el usuario seleccionado?')) {
+            //eliminamos el código usando la clave que esta asociada al nombre
+            //el item se guardo usando como clave el código de la carrera
+            localStorage.removeItem(strEstudianteEliminar);
+            //cargamos en el cuerpo de la tabla la lista de carreras
+            $.mostrarListaDeUsuarios();
+        }
+    });
+    //cuando la pagina carga mostramos la lista de carreras.
+    $.mostrarListaDeUsuarios();
+});
+
+
+
+
+
+
+
+
+
 /*!
  * Bootstrap v3 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.

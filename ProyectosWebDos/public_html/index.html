@@ -9,6 +9,7 @@
         <link href="CSS/bootstrap.css" rel="stylesheet">
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="CSS/style.css">
+        <link href="css/main.css" rel="stylesheet">
         <script type="text/javascript" src="JavaScript/jquery-1.8.3.min.js"></script>
         <script type="text/javascript" src="JavaScript/bootstrap.js"></script>
 
@@ -33,7 +34,7 @@
         <br/>
         <div class="container">
             <div id="content">
-                <ul id="tabs" class="nav nav-justified" data-tabs="tabs">
+                <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
                     <li class="active"><a href="#dashboard" data-toggle="tab">Dashboard</a></li>
                     <li><a href="#carreras" data-toggle="tab">Carreras</a></li>
                     <li><a href="#estudiantes" data-toggle="tab">Estudiantes</a></li>
@@ -42,14 +43,63 @@
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="dashboard">
-                        <h1>Dashboard</h1>
-                        <p>red red red red red red</p>
+                        <h3 class="page-header">Dashboard</h3>
+                        <div class="row flat center-block">
+                            <div class="col-lg-3 col-md-3 col-xs-4">
+                                <ul class="plan plan3">
+                                    <li class="plan-name">
+                                        Carreras
+                                    </li>
+                                    <li class="plan-price">
+                                        <a href="#carreras" class="btn btn-primary btn-lg"><strong>Agregar</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#carreras" class="btn btn-danger btn-lg"><strong>Eliminar</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#carreras" class="btn btn-success btn-lg"><strong>Ver lista</strong></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-4">
+                                <ul class="plan plan1">
+                                    <li class="plan-name">
+                                        Estudiantes
+                                    </li>
+                                    <li class="plan-price">
+                                        <a href="#" class="btn btn-primary btn-lg"><strong>Agregar</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn btn-danger btn-lg"><strong>Eliminar</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn btn-success btn-lg"><strong>Ver lista</strong></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-4">
+                                <ul class="plan plan1">
+                                    <li class="plan-name">
+                                        Usuarios
+                                    </li>
+                                    <li class="plan-price">
+                                        <a href="#" class="btn btn-primary btn-lg"><strong>Agregar</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn btn-danger btn-lg"><strong>Eliminar</strong></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="btn btn-success btn-lg"><strong>Ver lista</strong></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="carreras"> 
                         <div class="container"> 
                             <div class="row"> 
                                 <div class="col-xs-12"> 
-                                    <h1>Lista de carreras</h1> 
+                                    <h3 class="page-header">Lista de carreras</h3> 
                                     <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button> 
                                     <div class="modal fade"  id="nuevacarrera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -98,7 +148,6 @@
                                                 </tr>
                                             </thead> 
                                             <tbody>
-
                                             </tbody>
                                         </table> 
                                     </div> 
@@ -110,7 +159,7 @@
                         <div class="container"> 
                             <div class="row">
                                 <div class="col-xs-8">
-                                    <h1>Lista de estudiantes</h1>
+                                    <h3 class="page-header">Lista de estudiantes</h3> 
                                     <div class="btn-group">
                                         <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevoEstudiante">Nuevo</button>
                                         <div class="modal fade"  id="nuevoEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -197,13 +246,47 @@
                         <div class="container"> 
                             <div class="row">
                                 <div class="col-xs-8">
-                                    <h1>Lista de usuarios</h1>
-                                    <h5>Opciones</h5>
-                                    <div class="btn-group">
-                                        <button class="btn btn-success btn-sm">Nuevo</button>
-                                        <button class="btn btn-danger btn-sm">Eliminar</button>
-                                        <button class="btn btn-warning btn-sm">Editar</button>
-                                        <button class="btn btn-info btn-sm">Ver detalles</button>
+                                    <h3 class="page-header">Lista de usuarios</h3> 
+                                    <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevousuario">Nuevo</button> 
+                                    <div class="modal fade"  id="nuevousuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                                    <h4>Agregar usuario</h4>
+                                                    <div class="modal-body">
+                                                        <form id="frmAgregarUsuario">
+                                                            <div class="form-group">
+                                                                <label for="txtCedulaUsuario">Cédula:</label>
+                                                                <input type="text" class="form-control" id="txtCedulaUsuario"
+                                                                       placeholder="Cédula">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="txtNombreUsuario">Nombre:</label>
+                                                                <input type="text" class="form-control" id="txtNombreUsuario" 
+                                                                       placeholder="Nombre">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="txtApellidosUsuario">Apellidos:</label>
+                                                                <input type="text" class="form-control" id="txtApellidosUsuario" 
+                                                                       placeholder="Apellidos">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="txtEdadUsuario">Edad</label>
+                                                                <input type="text" class="form-control" id="txtEdadUsuario" 
+                                                                       placeholder="Edad">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="txtPrivilegiosUsuario">Privilegios</label>
+                                                                <input type="text" class="form-control" id="txtPrivilegiosUsuario" 
+                                                                       placeholder="Privilegios">
+                                                            </div>
+                                                            <input type="submit" value="Agregar">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>	
@@ -213,45 +296,19 @@
                             <div class="row">
                                 <div class="col-xs-8">
                                     <div class="table-responsive">
-                                        <table class="table table table-hover table-bordered table-striped table-condensed">
+                                        <table id="tblTablaUsuarios" class="table table table-hover table-bordered table-striped table-condensed">
                                             <thead >
-                                                <tr id="0" class="bg-success">
+                                                <tr class="bg-success">
                                                     <th>Cédula</th>
                                                     <th>Nombre</th>
                                                     <th>Apellidos</th>
                                                     <th>Edad</th>
                                                     <th>Privilegios</th>
+                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>2-0691-0083</td>
-                                                    <td>Ignacio</td>
-                                                    <td>Valerio Vega</td>
-                                                    <td>23</td>
-                                                    <td>Administrador</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2-0549-0349</td>
-                                                    <td>Pedro</td>
-                                                    <td>Picapiedra</td>
-                                                    <td>19</td>
-                                                    <td>Administrador</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3-0987-0231</td>
-                                                    <td>Pablo</td>
-                                                    <td>Mármol</td>
-                                                    <td>21</td>
-                                                    <td>Administrador</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3-0563-0231</td>
-                                                    <td>Carlos</td>
-                                                    <td>Ezquivel</td>
-                                                    <td>21</td>
-                                                    <td>Administrador</td>
-                                                </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
