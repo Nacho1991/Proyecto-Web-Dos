@@ -18,6 +18,7 @@ $(function() {
         $objCuerpoTablaCarreras.empty();
         //hay carreras almacenados?
         var vectorCarreras = JSON.parse(localStorage.getItem('Carrera'));
+        debugger;
         //Se valida si el objeto se encuentra vacio
         if (vectorCarreras === null)
         {
@@ -151,6 +152,25 @@ $(function() {
                     'No podrá utilizar la agenda :(');
         });
     }
+
+    $.eliminarEstudiante = function(pCedula)
+    {
+        var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
+        debugger;
+        for (var pos = 0; pos < vectorEstudiantes.length; pos++)
+        {
+            if (vectorEstudiantes[pos].cedulaEstudiante === pCedula)
+            {
+                delete vectorEstudiantes[pos];
+                vectorEstudiantes = vectorEstudiantes.filter(function(n) {
+                    return n !== undefined;
+                }); // (JS 1.6 and above)
+                localStorage.setItem('Estudiante', JSON.stringify(vectorEstudiantes));
+            }
+        }
+        $.mostrarListaDeEstudiante();
+    };
+
     $.mostrarListaDeEstudiante = function() {
         //tabla en la que mostraremos la lista (agregando filas con jQuery)
         var $objCuerpoTablaEstudiantes = $('#tblTablaEstudiantes').find('tbody');
@@ -159,7 +179,6 @@ $(function() {
         //hay carreras almacenados?
         var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
         //Se valida si el objeto se encuentra vacio
-        debugger;
         if (vectorEstudiantes === null)
         {
             //agregamos una fila con un mensaje indicando que no hay carreras
@@ -178,40 +197,45 @@ $(function() {
             for (var pos = 0; pos < vectorEstudiantes.length; pos++) {
                 //guardamos en variables el código,nombre y sede de la carrera del localStorage
                 //agregamos una nueva fila con los datos de la carrera
-                $objCuerpoTablaEstudiantes.append(
-                        $('<tr>').append(
-                        $('<td>', {//fila con el codigo
-                            text: vectorEstudiantes[pos].cedulaEstudiante,
-                            align: 'left'
+                if (vectorEstudiantes[pos] === null)
+                {
 
-                        }),
-                        $('<td>', {//fila con la carrera
-                            text: vectorEstudiantes[pos].nombreEstudiante,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila con la sede
-                            text: vectorEstudiantes[pos].apellidosEstudiante,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila con la sede
-                            text: vectorEstudiantes[pos].carreraEstudiante,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila para las opciones
-                            align: 'left',
-                            width: 60
-                        }).append(
-                        //agregamos a la fila el boton
-                        $('<input>', {
-                            type: 'button',
-                            class: 'clsEliminarEstudiante',
-                            value: 'Eliminar'
-                        }).data('estudianteEliminar', vectorEstudiantes.cedulaEstudiante) //por medio del metodo
-                        //data almacenamos en el boton el numero que debemos eliminar
-                        //(esto no sera visible, es un truquillo interesante)
-                        )
-                        )
-                        );
+                } else {
+                    $objCuerpoTablaEstudiantes.append(
+                            $('<tr>').append(
+                            $('<td>', {//fila con el codigo
+                                text: vectorEstudiantes[pos].cedulaEstudiante,
+                                align: 'left'
+
+                            }),
+                            $('<td>', {//fila con la carrera
+                                text: vectorEstudiantes[pos].nombreEstudiante,
+                                align: 'left'
+                            }),
+                            $('<td>', {//fila con la sede
+                                text: vectorEstudiantes[pos].apellidosEstudiante,
+                                align: 'left'
+                            }),
+                            $('<td>', {//fila con la sede
+                                text: vectorEstudiantes[pos].carreraEstudiante,
+                                align: 'left'
+                            }),
+                            $('<td>', {//fila para las opciones
+                                align: 'left',
+                                width: 60
+                            }).append(
+                            //agregamos a la fila el boton
+                            $('<input>', {
+                                type: 'button',
+                                class: 'clsEliminarEstudiante',
+                                value: 'Eliminar'
+                            }) //por medio del metodo
+                            //data almacenamos en el boton el numero que debemos eliminar
+                            //(esto no sera visible, es un truquillo interesante)
+                            )
+                            )
+                            );
+                }
             }
         }
     };
@@ -274,6 +298,7 @@ $(function() {
                 vectorEstudiantes = [];
             }
             vectorEstudiantes.push(objetoDatosEstudiante);
+            vectorEstudiantes.sort();
             localStorage.setItem('Estudiante', JSON.stringify(vectorEstudiantes));
             //cargamos en el cuerpo de la tabla la lista de contactos
             $.mostrarListaDeEstudiante();
@@ -293,17 +318,10 @@ $(function() {
     //clic en el boton para eliminar una carrera
     //se usa live en vez de on, porque el boton se creo en tiempo de ejecucion
     $('.clsEliminarEstudiante').live('click', function() {
-        //obtenemos el código que se va a eliminar (esta almacenado en data)
-        var strEstudianteEliminar = $(this).data('estudianteEliminar');
-        if (confirm('¿Desea eliminar el estudiante seleccionado?')) {
-            //eliminamos el código usando la clave que esta asociada al nombre
-            //el item se guardo usando como clave el código de la carrera
-            localStorage.removeItem(strEstudianteEliminar);
-            //cargamos en el cuerpo de la tabla la lista de carreras
-            $.mostrarListaDeEstudiante();
-        }
+        debugger;
+        $.eliminarEstudiante('1');
+
     });
-    //cuando la pagina carga mostramos la lista de carreras.
     $.mostrarListaDeEstudiante();
 });
 
