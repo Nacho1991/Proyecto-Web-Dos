@@ -474,6 +474,30 @@ $(function() {
      document.location.href = 'index.html';
      }
      }*/
+    $("#btnIniciarSesion").bind("click", function()
+    {
+        var vectorUsuariosLogin = JSON.parse(localStorage.getItem('Usuario'));
+        if (vectorUsuariosLogin === null)
+        {
+            alert('No hay datos registrados en la base de datos');
+        } else {
+            var $txtNombreUsuario = $('#txtNombreUsuarioLogin');
+            var $txtContrasenna = $('#txtContrasennaLogin');
+
+            var strNombreUsuario = $.trim($txtNombreUsuario.val());
+            var strContrasenna = $.trim($txtContrasenna.val());
+            for (var pos = 0; pos < vectorUsuariosLogin.length; pos++) {
+                if (strNombreUsuario === vectorUsuariosLogin[pos].cedulaUsuario && strContrasenna === vectorUsuariosLogin[pos].contrasennaUsuario)
+                {
+                    $(location).attr('href', 'index.html');
+                } else
+                {
+                    alert('No existe un usuario registrado con los datos ingresados');
+
+                }
+            }
+        }
+    });
     //evento submit del formulario
     $('#frmAgregarUsuario').on('submit', function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
@@ -484,21 +508,24 @@ $(function() {
         var $txtApellidosUsuario = $('#txtApellidosUsuario');
         var $txtEdadUsuario = $('#txtEdadUsuario');
         var $txtPrivilegiosUsuario = $('#txtPrivilegiosUsuario');
+        var $txtContrasennauUsuario = $('#txtContrasennaUsuario');
         //verificamos que los datos no esten vacios
         //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
-        if ($.trim($txtCedulaUsuario.val()) != '' && $.trim($txtNombreUsuario.val()) != '' && $.trim($txtApellidosUsuario.val()) != '' && $.trim($txtEdadUsuario.val() != '') && $.trim($txtPrivilegiosUsuario.val() != '')) {
+        if ($.trim($txtCedulaUsuario.val()) !== '' && $.trim($txtNombreUsuario.val()) !== '' && $.trim($txtApellidosUsuario.val()) !== '' && $.trim($txtEdadUsuario.val() !== '') && $.trim($txtPrivilegiosUsuario.val() !== '') && $.trim($txtContrasennauUsuario.val() !== '')) {
             //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
             var strCedulaUsuario = $.trim($txtCedulaUsuario.val());
             var strNombreUsuario = $.trim($txtNombreUsuario.val());
             var strApellidosUsuario = $.trim($txtApellidosUsuario.val());
             var strEdadUsuario = $.trim($txtEdadUsuario.val());
             var strPrivilegiosUsuario = $.trim($txtPrivilegiosUsuario.val());
+            var strContrasennaUsuario = $.trim($txtContrasennauUsuario.val());
             objetoDatosUsuario = {
                 cedulaUsuario: strCedulaUsuario,
                 nombreUsuario: strNombreUsuario,
                 apellidosUsuario: strApellidosUsuario,
                 edadUsuario: strEdadUsuario,
-                privilegiosUsuario: strPrivilegiosUsuario
+                privilegiosUsuario: strPrivilegiosUsuario,
+                contrasennaUsuario: strContrasennaUsuario
             };
             var vectorUsuarios = JSON.parse(localStorage.getItem('Usuario'));
             if (vectorUsuarios === null) {
@@ -519,6 +546,7 @@ $(function() {
             $txtApellidosUsuario.val('');
             $txtEdadUsuario.val('');
             $txtPrivilegiosUsuario.val('');
+            $txtContrasennauUsuario.val('');
         }
     });
 
