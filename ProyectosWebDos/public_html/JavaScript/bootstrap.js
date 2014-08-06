@@ -100,7 +100,6 @@ $(function() {
         //limpiamos el contenido de los campos de texto y la enfocamos
         $('#txtCodCarrera').val('').focus();
         $('#txtNombreCarrera').val('');
-        $('#txtSede').val('');
     };
 
     //evento submit del formulario
@@ -110,14 +109,13 @@ $(function() {
         //obtenemos una "copia" de los campos de texto
         var $txtCodigoCarrera = $('#txtCodCarrera');
         var $txtNombreCarrera = $('#txtNombreCarrera');
-        var $txtSede = $('#txtSede');
         //verificamos que los datos no esten vacios
         //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
-        if ($.trim($txtCodigoCarrera.val()) != '' && $.trim($txtNombreCarrera.val()) != '' && $.trim($txtSede.val())) {
+        if ($.trim($txtCodigoCarrera.val()) !== '' && $.trim($txtNombreCarrera.val()) !== '') {
             //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
             var strCodigoCarrera = $.trim($txtCodigoCarrera.val());
             var strNombreCarrera = $.trim($txtNombreCarrera.val());
-            var strSede = $.trim($txtSede.val());
+            var strSede = document.getElementById('cmbSede').value;
             objetoDatosCarrera = {
                 codigoCarrera: strCodigoCarrera,
                 nombreCarrera: strNombreCarrera,
@@ -139,7 +137,6 @@ $(function() {
             //enfocamos el campo para el código
             $txtCodigoCarrera.val('');
             $txtNombreCarrera.val('');
-            $txtSede.val('');
         }
     });
 
@@ -209,7 +206,7 @@ $(function() {
                     $('<tr>').append(
                     $('<td>', {
                         text: 'No se han registrado estudiantes',
-                        colspan: 5,
+                        colspan: 6,
                         align: 'center'
                     })
                     )
@@ -241,6 +238,10 @@ $(function() {
                             }),
                             $('<td>', {//fila con la sede
                                 text: vectorEstudiantes[pos].carreraEstudiante,
+                                align: 'left'
+                            }),
+                            $('<td>', {//fila con la sede
+                                text: vectorEstudiantes[pos].nivelIngles,
                                 align: 'left'
                             }),
                             $('<td>', {//fila para las opciones
@@ -285,7 +286,6 @@ $(function() {
         $('#txtCedulaEstudiante').val('').focus();
         $('#txtNombreEstudiante').val('');
         $('#txtApellidosEstudiante').val('');
-        $('#txtCarreraEstudiante').val('');
     };
 
     function prepararEnlace() {
@@ -318,20 +318,22 @@ $(function() {
         var $txtCedulaEstudiante = $('#txtCedulaEstudiante');
         var $txtNombreEstudiante = $('#txtNombreEstudiante');
         var $txtApellidosEstudiante = $('#txtApellidosEstudiante');
-        var $txtCarreraEstudiante = $('#txtCarreraEstudiante');
+        debugger;
         //verificamos que los datos no esten vacios
         //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
-        if ($.trim($txtCedulaEstudiante.val()) != '' && $.trim($txtNombreEstudiante.val()) != '' && $.trim($txtApellidosEstudiante.val()) != '' && $.trim($txtCarreraEstudiante.val() != '')) {
+        if ($.trim($txtCedulaEstudiante.val()) !== '' && $.trim($txtNombreEstudiante.val()) !== '' && $.trim($txtApellidosEstudiante.val()) !== '') {
             //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
             var strCedulaEstudiante = $.trim($txtCedulaEstudiante.val());
             var strNombreEstudiante = $.trim($txtNombreEstudiante.val());
             var strApellidosEstudiante = $.trim($txtApellidosEstudiante.val());
-            var strCarreraEstudiante = $.trim($txtCarreraEstudiante.val());
+            var strCarreraEstudiante = document.getElementById('cmbCarreraEstudiante').value;
+            var strNivelIngles = document.getElementById('cmbNivelIngles').value;
             objetoDatosEstudiante = {
                 cedulaEstudiante: strCedulaEstudiante,
                 nombreEstudiante: strNombreEstudiante,
                 apellidosEstudiante: strApellidosEstudiante,
-                carreraEstudiante: strCarreraEstudiante
+                carreraEstudiante: strCarreraEstudiante,
+                nivelIngles: strNivelIngles
             };
             var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
             if (vectorEstudiantes === null) {
@@ -351,7 +353,6 @@ $(function() {
             $txtCedulaEstudiante.val('');
             $txtNombreEstudiante.val('');
             $txtApellidosEstudiante.val('');
-            $txtCarreraEstudiante.val('');
         }
     });
 
@@ -449,7 +450,6 @@ $(function() {
         $('#txtNombreUsuario').val('');
         $('#txtApellidosUsuario').val('');
         $('#txtEdadUsuario').val('');
-        $('#txtPrivilegiosUsuario').val('');
     };
 
     function prepararEnlace() {
@@ -489,7 +489,7 @@ $(function() {
             for (var pos = 0; pos < vectorUsuariosLogin.length; pos++) {
                 if (strNombreUsuario === vectorUsuariosLogin[pos].cedulaUsuario && strContrasenna === vectorUsuariosLogin[pos].contrasennaUsuario)
                 {
-                    $(location).attr('href', 'index.html');
+                    $(location).attr('href', 'DashBoard.html');
                 } else
                 {
                     alert('No existe un usuario registrado con los datos ingresados');
@@ -507,17 +507,17 @@ $(function() {
         var $txtNombreUsuario = $('#txtNombreUsuario');
         var $txtApellidosUsuario = $('#txtApellidosUsuario');
         var $txtEdadUsuario = $('#txtEdadUsuario');
-        var $txtPrivilegiosUsuario = $('#txtPrivilegiosUsuario');
+        debugger;
         var $txtContrasennauUsuario = $('#txtContrasennaUsuario');
         //verificamos que los datos no esten vacios
         //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
-        if ($.trim($txtCedulaUsuario.val()) !== '' && $.trim($txtNombreUsuario.val()) !== '' && $.trim($txtApellidosUsuario.val()) !== '' && $.trim($txtEdadUsuario.val() !== '') && $.trim($txtPrivilegiosUsuario.val() !== '') && $.trim($txtContrasennauUsuario.val() !== '')) {
+        if ($.trim($txtCedulaUsuario.val()) !== '' && $.trim($txtNombreUsuario.val()) !== '' && $.trim($txtApellidosUsuario.val()) !== '' && $.trim($txtEdadUsuario.val() !== '') && $.trim($txtContrasennauUsuario.val() !== '')) {
             //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
             var strCedulaUsuario = $.trim($txtCedulaUsuario.val());
             var strNombreUsuario = $.trim($txtNombreUsuario.val());
             var strApellidosUsuario = $.trim($txtApellidosUsuario.val());
             var strEdadUsuario = $.trim($txtEdadUsuario.val());
-            var strPrivilegiosUsuario = $.trim($txtPrivilegiosUsuario.val());
+            var strPrivilegiosUsuario = document.getElementById('cmbPrivilegios').value;
             var strContrasennaUsuario = $.trim($txtContrasennauUsuario.val());
             objetoDatosUsuario = {
                 cedulaUsuario: strCedulaUsuario,
@@ -545,7 +545,6 @@ $(function() {
             $txtNombreUsuario.val('');
             $txtApellidosUsuario.val('');
             $txtEdadUsuario.val('');
-            $txtPrivilegiosUsuario.val('');
             $txtContrasennauUsuario.val('');
         }
     });

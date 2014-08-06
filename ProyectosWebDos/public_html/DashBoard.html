@@ -118,7 +118,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                    <h4>Agregar carrera</h4>
+                                                    <h4 class="page-header">Agregar carrera</h4>
                                                     <div class="modal-body">
                                                         <form id="frmAgregarCarrera">
                                                             <div class="form-group">
@@ -132,10 +132,15 @@
                                                                        placeholder="Nombre de la carrera">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="txtSede">Sede:</label>
-                                                                <input type="text" class="form-control" id="txtSede" 
-                                                                       placeholder="Nombre de la carrera">
-                                                            </div>
+                                                                    <label for="cmbSede">Sede:</label>
+                                                                    <select id="cmbSede" class="form-control selectpicker">
+                                                                        <option>Central</option>
+                                                                        <option>Atenas</option>
+                                                                        <option>Guanacaste</option>
+                                                                        <option>Pacifico</option>
+                                                                        <option>San Carlos</option>
+                                                                    </select>
+                                                                </div>
                                                             <input type="submit" value="Agregar">
                                                         </form>
                                                     </div>
@@ -179,7 +184,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                        <h4>Agregar estudiante</h4>
+                                                        <h4 class="page-header">Agregar estudiante</h4>
                                                         <div class="modal-body">
                                                             <form id="frmAgregarEstudiante">
                                                                 <div class="form-group">
@@ -195,29 +200,28 @@
                                                                 <div class="form-group">
                                                                     <label for="txtApellidosEstudiante">Apellidos:</label>
                                                                     <input type="text" class="form-control" id="txtApellidosEstudiante" 
-                                                                           placeholder="Nombre del estudiante">
+                                                                           placeholder="Apellidos">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="txtCarreraEstudiante">Carrera:</label>
-                                                                    <input type="text" class="form-control" id="txtCarreraEstudiante" 
-                                                                           placeholder="Nombre de la carrera">
+                                                                    <label for="cmbCarreraEstudiante">Carrera:</label>
+                                                                    <select id="cmbCarreraEstudiante" class="form-control selectpicker">
+                                                                        <option>AGRH - Administración De Recursos Humanos</option>
+                                                                        <option>COEX - Comercia Exterior</option>
+                                                                        <option>ASA - Asistencia Administrativa</option>
+                                                                        <option>AA - Administración Aduanera</option>
+                                                                        <option>COFI - Contabilidad y Finanzas</option>
+                                                                        <option>IGA - Ingeniería Gestión Ambiental</option>
+                                                                        <option>ISW - Ingenieria en Software</option>
+                                                                    </select>
                                                                 </div>
-                                                                <div>
-                                                                    <fieldset class="scheduler-border">
-                                                                        <legend class="scheduler-border">Nivel de inglés</legend>
-                                                                        <div class="control-group">
-                                                                            <div class="checkbox-inline">
-                                                                                <input type="radio" name="radio" />
-                                                                                <label for="radio1">Nivel 1</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <input type="radio" name="radio" id="estilo1" />
-                                                                                <label for="radio2">Nivel 2</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <input type="radio" name="radio" id="estilo2" />
-                                                                                <label for="radio3">Nivel 3</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <input type="radio" name="radio" id="estilo3" />
-                                                                                <label for="radio4">Avanzado</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </fieldset>
+                                                                <div class="form-group">
+                                                                    <label for="cmbNivelIngles">Nivel de ingles</label>
+                                                                    <select id="cmbNivelIngles" class="form-control selectpicker">
+                                                                        <option>Nivel 1</option>
+                                                                        <option>Nivel 2</option>
+                                                                        <option>Nivel 3</option>
+                                                                        <option>Nivel Avanzado</option>
+                                                                    </select>
                                                                 </div>
                                                                 <button id="btnAgregarEstudiante">Agregar</button>
                                                             </form>
@@ -242,6 +246,7 @@
                                                     <th>Nombre</th>
                                                     <th>Apellidos</th>
                                                     <th>Carrera</th>
+                                                    <th>Nivel de inglés</th>
                                                     <th>Opciones</th>
                                                 </tr>
                                             </thead>
@@ -289,14 +294,15 @@
                                                                        placeholder="Edad">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="txtPrivilegiosUsuario">Privilegios:</label>
-                                                                <input type="text" class="form-control" id="txtPrivilegiosUsuario" 
-                                                                       placeholder="Privilegios">
+                                                                <label for="cmbPrivilegios">Privilegios:</label>
+                                                                <select id="cmbPrivilegios" class="form-control selectpicker">
+                                                                    <option>Administrador</option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="txtContrasennaUsuario">Contraseña:</label>
                                                                 <input type="text" class="form-control" id="txtContrasennaUsuario" 
-                                                                       placeholder="Privilegios">
+                                                                       placeholder="Contraseña">
                                                             </div>
                                                             <input type="submit" value="Agregar">
                                                         </form>
