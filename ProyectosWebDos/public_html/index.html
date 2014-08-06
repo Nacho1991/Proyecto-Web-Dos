@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Segundo Proyecto Web UTN</title>
         <link href="CSS/Estilos.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="CSS/bootstrap.css" rel="stylesheet">
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="CSS/style.css">
@@ -16,30 +17,41 @@
     </head>
     <body class="">
         <div class="container">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="navbar-collapse">
-                    <ul class="nav navbar-navt">
-                        <li>
-                            <div class="container">
-                                <br/>
-                                <img  src="Imagenes/Logo.png" class="imagen img-thumbnail" alt="Imagen responsive">
-                                <br/>
-                                <br/>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-default navbar-left">
+                    <li>
+                        <div class="flip">
+                            <img  src="Imagenes/Logo.png" class="imagen flip-1" alt="Imagen responsive">
+                            <div class="flip-2"><img  src="Imagenes/Logo.png" class="imagen flip-1" alt="Imagen responsive"> </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-default navbar-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Administrador <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Configuración</a></li>
+                            <li><a href="#">Perfil</a></li>
+                            <li class="divider"></li>
+                            <li><a href="Login.html" target="_self">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
         </div>
         <br/>
         <div class="container">
             <div id="content">
                 <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
-                    <li class="active"><a href="#dashboard" data-toggle="tab">Dashboard</a></li>
-                    <li><a href="#carreras" data-toggle="tab">Carreras</a></li>
-                    <li><a href="#estudiantes" data-toggle="tab">Estudiantes</a></li>
-                    <li><a href="#usuarios" data-toggle="tab">Usuarios</a></li>
-                    <li><a href="#acercade" data-toggle="tab">Acerca de..</a></li>
+                    <li class="active"><a href="#dashboard" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Menú principal">Dashboard</a></li>
+                    <li><a href="#carreras" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Gestiona la carreras registradas">Carreras</a></li>
+                    <li><a href="#estudiantes" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Gestiona los registros de los estudiantes">Estudiantes</a></li>
+                    <li><a href="#usuarios" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Gestiona los usuarios registrados">Usuarios</a></li>
+                    <li><a href="#acercade" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Brinda información acerca de la emnpresa">Acerca de..</a></li>
                 </ul>
                 <div id="my-tab-content" class="tab-content">
                     <div class="tab-pane active" id="dashboard">

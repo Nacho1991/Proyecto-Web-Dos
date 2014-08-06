@@ -2,6 +2,29 @@ var objetoDatosCarrera;
 var objetoDatosEstudiante;
 var objetoDatosUsuario;
 
+$(function()
+{
+    $(".tip-top").tooltip({
+        placement: 'top'
+    });
+    $(".tip-right").tooltip({
+        placement: 'right'
+    });
+    $(".tip-bottom").tooltip({
+        placement: 'bottom'
+    });
+    $(".tip-left").tooltip({
+        placement: 'left'
+    });
+});
+function prepararEnlace() {
+    $("#iniciarsesion").bind("click", function() {
+        $(this).button('Cargando').delay(1000).queue(function() {
+            $(this).button('Completado');
+            $(this).dequeue();
+        });
+    });
+}
 //Funcion encargada del manejo total de la carrera
 $(function() {
     //verificamos si el navegador soporta localStorage
@@ -233,23 +256,23 @@ $(function() {
                             })
                             )
                             .append(
-                            //agregamos a la fila el boton
-                            $('<input>', {
-                                type: 'button',
-                                class: 'clsDetallesEstudiante',
-                                value: 'Ver detalles',
-                                id: vectorEstudiantes[pos].cedulaEstudiante
-                            })
-                            )
+                                    //agregamos a la fila el boton
+                                    $('<input>', {
+                                        type: 'button',
+                                        class: 'clsDetallesEstudiante',
+                                        value: 'Ver detalles',
+                                        id: vectorEstudiantes[pos].cedulaEstudiante
+                                    })
+                                    )
                             .append(
-                            //agregamos a la fila el boton
-                            $('<input>', {
-                                type: 'button',
-                                class: 'clsModificarEstudiante',
-                                value: 'Modificar',
-                                id: vectorEstudiantes[pos].cedulaEstudiante
-                            })
-                            )
+                                    //agregamos a la fila el boton
+                                    $('<input>', {
+                                        type: 'button',
+                                        class: 'clsModificarEstudiante',
+                                        value: 'Modificar',
+                                        id: vectorEstudiantes[pos].cedulaEstudiante
+                                    })
+                                    )
                             )
                             );
                 }
