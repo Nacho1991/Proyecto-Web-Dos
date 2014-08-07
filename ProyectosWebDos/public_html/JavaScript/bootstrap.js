@@ -533,20 +533,7 @@ $(function() {
                         $('<td>', {//fila con la sede
                             text: vectorUsuarios[pos].privilegiosUsuario,
                             align: 'left'
-                        }),
-                        $('<td>', {//fila para las opciones
-                            align: 'left',
-                            width: 60
-                        }).append(
-                        //agregamos a la fila el boton
-                        $('<input>', {
-                            type: 'button',
-                            class: 'clsEliminarUsuario',
-                            value: 'Eliminar'
-                        }).data('usuarioEliminar', vectorUsuarios[pos].cedulaEstudiante) //por medio del metodo
-                        //data almacenamos en el boton el numero que debemos eliminar
-                        //(esto no sera visible, es un truquillo interesante)
-                        )
+                        })
                         )
                         );
             }
@@ -562,7 +549,7 @@ $(function() {
     };
 
     //evento submit del formulario
-    $('#frmAgregarUsuario').on('submit', function(eEvento) {
+    $("#btnAgregarUsuario").bind("click", function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
         eEvento.preventDefault();
         //obtenemos una "copia" de los campos de texto
@@ -609,6 +596,130 @@ $(function() {
             $txtApellidosUsuario.val('');
             $txtEdadUsuario.val('');
             $txtContrasennauUsuario.val('');
+        }
+    });
+    $("#btnEditarUsuario").bind("click", function(eEvento) {
+        //evitamos que el form se envie (para que no recargue la pagina)
+        eEvento.preventDefault();
+        //obtenemos una "copia" de los campos de texto
+        var $txtCedulaUsuario = $('#txtCedulaUsuarioEditar');
+        var $txtNombreUsuario = $('#txtNombreUsuarioEditar');
+        var $txtApellidosUsuario = $('#txtApellidosUsuarioEditar');
+        var $txtEdadUsuario = $('#txtEdadUsuarioEditar');
+        var $txtContrasennaUsuario = $('#txtContrasennaUsuarioEditar');
+
+        //Utilizamos Trim para eliminar los espacios en blanco del inicio y el final del TextBox
+        //Tambien verificamos si los datos provenientes estan vacios
+        if ($.trim($txtCedulaUsuario.val()) !== '' && $.trim($txtNombreUsuario.val()) !== '' && $.trim($txtApellidosUsuario.val()) !== '' && $.trim($txtEdadUsuario.val()) !== '' && $.trim($txtContrasennaUsuario.val()) !== '') {
+            //Creamos variables para almacenar los datos provenientes de los TextBox
+            var strCedulaUsuario = $.trim($txtCedulaUsuario.val());
+            var strNombreUsuario = $.trim($txtNombreUsuario.val());
+            var strApellidosUsuario = $.trim($txtApellidosUsuario.val());
+            var strEdadUsuario = $.trim($txtEdadUsuario.val());
+            var strPrivilegiosUsuario = document.getElementById('cmbPrivilegiosEditar').value;
+            var strContrasennaUsuario = $.trim($txtContrasennaUsuario.val());
+
+            var vectorUsuarioEditar = JSON.parse(localStorage.getItem('Usuario'));
+            //Creamos una variable inicializada en cero para darnos cuenta de si modifico o no
+            var modificado = 0;
+            //Verificamos si el vector tiene datos
+            if (vectorUsuarioEditar !== null) {
+                debugger;
+                //Recorremos el vector con los datos recogidos
+                for (var pos = 0; pos < vectorUsuarioEditar.length; pos++)
+                {
+                    //Validamos si el codigo de la carrera coincide con la del campo del vector
+                    if (vectorUsuarioEditar[pos].cedulaUsuario === strCedulaUsuario)
+                    {
+                        //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
+                        vectorUsuarioEditar[pos].cedulaUsuario = strCedulaUsuario;
+                        vectorUsuarioEditar[pos].nombreUsuario = strNombreUsuario;
+                        vectorUsuarioEditar[pos].apellidosUsuario = strApellidosUsuario;
+                        vectorUsuarioEditar[pos].edadUsuario = strEdadUsuario;
+                        vectorUsuarioEditar[pos].contrasennaUsuario = strContrasennaUsuario;
+                        vectorUsuarioEditar[pos].privilegiosUsuario = strPrivilegiosUsuario;
+                        //Guardamos los cambios en el LocalStorage
+                        localStorage.setItem('Usuario', JSON.stringify(vectorUsuarioEditar));
+                        //Con este metodo actualizamos los datos en la tabla
+                        $.mostrarListaDeUsuarios();
+                        //Tambien limpiamos los datos digitados en los TextBox
+                        $.limpiarCamposDelFormularioUsuario();
+                        //Igualamos en 1 la variable, esto indica de que si hubo modificaciones
+                        modificado = 1;
+                        //Mandamos una alerta informando del exito de la modificación
+                        alert('El usuario se ha modificado satisfactoriamente.');
+                        //Una vez editado frenamos el ciclo para que no siga recorriendolo
+                        break;
+
+                    }
+                }
+                //Validamos si la variable sigue estando en cero
+                if (modificado === 0)
+                {
+                    //Limpiamos los TextBox con el siguiente metodo
+                    $.limpiarCamposDelFormularioUsuario();
+                    debugger;
+                    //Enviamos una alerta informando de que no se encontro ningun codigo
+                    alert('No se ha encontrado ningún registro asociado al siguiente número de cédula: ' + strCedulaUsuario);
+                }
+            } else
+            {
+                //Enviamos una alerta informando de que no hay registros en la base de datos
+                alert('No hay registros en la base de datos');
+                //Actualizamos aun sin tener registros.
+                $.mostrarListaDeUsuarios();
+                //limpiamos el formulario
+                $.limpiarCamposDelFormularioUsuario();
+            }
+        } else {
+            //en caso de que algun campo este vacio mandamos una alerta de los campos faltantes
+            alert('Faltan datos importantes, por favor corrija para continuar.');
+        }
+    });
+    $("#btnEliminarUsuario").bind("click", function() {
+
+        //Creamos un vector para que contenga los datos de los estudiantes
+        var vectorUsuarioEliminar = JSON.parse(localStorage.getItem('Usuario'));
+        //Creamos un objeto que va a contener el dato del TextBox
+        var $txtCedulaUsuario = $('#txtEliminarUsuario');
+        //Creamos una variable y automaticamente le asignamos el valor de la variable anterior
+        var strTxtCedulaUsuario = $.trim($txtCedulaUsuario.val());
+        //Creamos un ciclo para recorrer el vector
+        debugger;
+        if (strTxtCedulaUsuario !== "") {
+            if (vectorUsuarioEliminar !== null && vectorUsuarioEliminar.length > 0) {
+                for (var pos = 0; pos < vectorUsuarioEliminar.length; pos++)
+                {
+                    debugger;
+                    //Validamos si en alguna posicion del vector es igual al valor que contiene el TextBox
+                    if (vectorUsuarioEliminar[pos].cedulaUsuario === strTxtCedulaUsuario)
+                    {
+                        //Borramos el contenido del vector en caso de haberse encontrado
+                        delete vectorUsuarioEliminar[pos];
+                        //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
+                        //nonde se le envia por parametro una funcion
+                        vectorUsuarioEliminar = vectorUsuarioEliminar.filter(function(n) {
+                            //Validamos y retornamos el valor
+                            return n !== undefined;
+                        });
+                        //Le enviamos o guardamos los datos con el dato eliminado
+                        localStorage.setItem('Usuario', JSON.stringify(vectorUsuarioEliminar));
+                        //Envocamos al metodo para actualizar la tabla con dato borrado
+                        $.mostrarListaDeUsuarios();
+                        //Enviamos una alerta informando de la satisfactoria eliminación
+                        alert('El usuario se ha eliminado satisfactoriamente');
+                        //Frenamos el ciclo para ahorarnos micromilesimas de segundo
+                        break;
+                    }
+                }
+            } else
+            {
+                alert('No existen registros en la base de datos');
+            }
+        }
+        else
+        {
+            alert('Por favor ingrese el número de cedula a eliminar');
         }
     });
     //cuando la pagina carga mostramos la lista de carreras.
