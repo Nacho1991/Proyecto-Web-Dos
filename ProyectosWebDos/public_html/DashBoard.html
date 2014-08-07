@@ -118,7 +118,7 @@
                                     <h3 class="page-header">Lista de carreras</h3> 
                                     <div class="col-xs-6">
                                         <div class="input-group">
-                                            
+
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button>
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarCarrera">Editar</button> 
@@ -166,7 +166,7 @@
                                                                     <option>San Carlos</option>
                                                                 </select>
                                                             </div>
-                                                            <input type="submit" value="Agregar">
+                                                            <button id="btnAgregarCarrera" class="btn btn-info" type="button">Agregar</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -206,7 +206,7 @@
                                                                     <option>San Carlos</option>
                                                                 </select>
                                                             </div>
-                                                            <input type="submit" value="Aplicar cambios">
+                                                            <button id="btnEditarCarrera" type="button" class="btn btn-info">Aplicar cambios</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -229,7 +229,6 @@
                                                     <th>Código</th> 
                                                     <th>Nombre</th> 
                                                     <th>Sede</th> 
-
                                                 </tr>
                                             </thead> 
                                             <tbody>
@@ -246,10 +245,25 @@
                     <div class="tab-pane" id="estudiantes">
                         <div class="container"> 
                             <div class="row">
-                                <div class="col-xs-8">
+                                <div class="col-xs-6">
                                     <h3 class="page-header">Lista de estudiantes</h3> 
-                                    <div class="btn-group">
-                                        <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevoEstudiante">Nuevo</button>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevoEstudiante">Nuevo</button>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarEstudiante">Editar</button> 
+                                        </span>
+                                        <input id="txtEliminarEstudiante" type="text" class="form-control" placeholder="Cédula a eliminar">
+                                        <span class="input-group-btn">
+                                            <button id="btnEliminarEstudiante" type="button" class="btn btn-success btn-sm">Eliminar</button>
+                                        </span>
+                                        <input id="txtVerDetallesEstudiante" type="text" class="form-control" placeholder="Cédula a detallar">
+                                        <span class="input-group-btn">
+                                            <button id="btnVerDetallesEstudiante" type="button" class="btn btn-success btn-sm">Ver detalles</button>
+                                        </span>
+
+
+                                        <!--Este modelo se encarga de almacenar los datos del estudiante!-->
+
                                         <div class="modal fade"  id="nuevoEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -294,8 +308,68 @@
                                                                         <option>Nivel Avanzado</option>
                                                                     </select>
                                                                 </div>
-                                                                <button id="btnAgregarEstudiante">Agregar</button>
                                                             </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button id="btnAgregarEstudiante" type="button" class="btn btn-info">Agregar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+
+                                        <!--Este modal se encarga de editar los estudiantes registrados en la base de datos!-->
+
+                                        <div class="modal fade"  id="editarEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                        <h4 class="page-header">Editar estudiante</h4>
+                                                        <div class="modal-body">
+                                                            <form id="frmEditarEstudiante">
+                                                                <div class="form-group">
+                                                                    <label for="txtCedulaEstudianteEditar">Cédula:</label>
+                                                                    <input type="text" class="form-control" id="txtCedulaEstudianteEditar"
+                                                                           placeholder="Cédula">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="txtNombreEstudianteEditar">Nombre:</label>
+                                                                    <input type="text" class="form-control" id="txtNombreEstudianteEditar" 
+                                                                           placeholder="Nombre">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="txtApellidosEstudianteEditar">Apellidos:</label>
+                                                                    <input type="text" class="form-control" id="txtApellidosEstudianteEditar" 
+                                                                           placeholder="Apellidos">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="cmbCarreraEstudianteEditar">Carrera:</label>
+                                                                    <select id="cmbCarreraEstudianteEditar" class="form-control selectpicker">
+                                                                        <option>AGRH - Administración De Recursos Humanos</option>
+                                                                        <option>COEX - Comercia Exterior</option>
+                                                                        <option>ASA - Asistencia Administrativa</option>
+                                                                        <option>AA - Administración Aduanera</option>
+                                                                        <option>COFI - Contabilidad y Finanzas</option>
+                                                                        <option>IGA - Ingeniería Gestión Ambiental</option>
+                                                                        <option>ISW - Ingenieria en Software</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="cmbNivelInglesEditar">Nivel de ingles</label>
+                                                                    <select id="cmbNivelInglesEditar" class="form-control selectpicker">
+                                                                        <option>Nivel 1</option>
+                                                                        <option>Nivel 2</option>
+                                                                        <option>Nivel 3</option>
+                                                                        <option>Nivel Avanzado</option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button id="btnEditarEstudiante" type="button" data-dismiss="modal" class="btn btn-info">Agregar</button>
+                                                            <button id="btnCancelarEstudianteEditar" type="button" class="btn btn-info" data-dismiss="modal">Salir</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -318,7 +392,6 @@
                                                     <th>Apellidos</th>
                                                     <th>Carrera</th>
                                                     <th>Nivel de inglés</th>
-                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
