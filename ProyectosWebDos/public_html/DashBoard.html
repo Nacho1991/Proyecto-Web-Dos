@@ -17,9 +17,6 @@
     </head>
     <body class="">
         <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"></a>
-            </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-default navbar-left">
                     <li>
@@ -31,7 +28,8 @@
                 </ul>
                 <ul class="nav navbar-default navbar-right">
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Administrador <b class="caret"></b></a>
+                        <label class="label label-primary" id="nombreAdministrador">Ignacio Valerio</label>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Opciones <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Configuración</a></li>
                             <li><a href="#">Perfil</a></li>
@@ -54,6 +52,9 @@
                     <li><a href="#acercade" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Brinda información acerca de la emnpresa">Acerca de..</a></li>
                 </ul>
                 <div id="my-tab-content" class="tab-content">
+
+                    <!--Tab del menu principal!-->
+
                     <div class="tab-pane active" id="dashboard">
                         <h3 class="page-header">Dashboard</h3>
                         <div class="row flat center-block">
@@ -107,12 +108,36 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--Tab De Carreras!-->
+
                     <div class="tab-pane" id="carreras"> 
                         <div class="container"> 
                             <div class="row"> 
                                 <div class="col-xs-12"> 
                                     <h3 class="page-header">Lista de carreras</h3> 
-                                    <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button> 
+                                    <div class="col-xs-6">
+                                        <div class="input-group">
+                                            
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button>
+                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarCarrera">Editar</button> 
+                                            </span>
+                                            <input id="txtEliminarCarrera" type="text" class="form-control" placeholder="Código a eliminar">
+                                            <span class="input-group-btn">
+                                                <button id="btnEliminarCarrera" type="button" class="btn btn-success btn-sm">Eliminar</button>
+                                            </span>
+                                            <input id="txtVerDetallesCarrera" type="text" class="form-control" placeholder="Código a detallar">
+                                            <span class="input-group-btn">
+                                                <button id="btnVerDetallesCarrera" type="button" class="btn btn-success btn-sm">Ver detalles</button>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <!--Este modelo es el encargado de registrar las carreras!-->
+
+
                                     <div class="modal fade"  id="nuevacarrera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -132,15 +157,15 @@
                                                                        placeholder="Nombre de la carrera">
                                                             </div>
                                                             <div class="form-group">
-                                                                    <label for="cmbSede">Sede:</label>
-                                                                    <select id="cmbSede" class="form-control selectpicker">
-                                                                        <option>Central</option>
-                                                                        <option>Atenas</option>
-                                                                        <option>Guanacaste</option>
-                                                                        <option>Pacifico</option>
-                                                                        <option>San Carlos</option>
-                                                                    </select>
-                                                                </div>
+                                                                <label for="cmbSede">Sede:</label>
+                                                                <select id="cmbSede" class="form-control selectpicker">
+                                                                    <option>Central</option>
+                                                                    <option>Atenas</option>
+                                                                    <option>Guanacaste</option>
+                                                                    <option>Pacifico</option>
+                                                                    <option>San Carlos</option>
+                                                                </select>
+                                                            </div>
                                                             <input type="submit" value="Agregar">
                                                         </form>
                                                     </div>
@@ -148,9 +173,52 @@
                                             </div>
                                         </div> 
                                     </div> 
+
+
+                                    <!--Este modelo se encarga de editar las carreras !-->
+
+
+                                    <div class="modal fade"  id="editarCarrera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                                    <h4 class="panel page-header">Editar carrera</h4>
+                                                    <div class="modal-body">
+                                                        <form id="frmEditarCarrera">
+                                                            <div class="form-group">
+                                                                <label for="txtCodCarreraEditar">Código de la carrera:</label>
+                                                                <input type="text" class="form-control" id="txtCodCarreraEditar"
+                                                                       placeholder="Codigo de la carrera">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="txtNombreCarreraEditar">Nombre de la carrera:</label>
+                                                                <input type="text" class="form-control" id="txtNombreCarreraEditar" 
+                                                                       placeholder="Nombre de la carrera">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="cmbSedeEditar">Sede:</label>
+                                                                <select id="cmbSedeEditar" class="form-control selectpicker">
+                                                                    <option>Central</option>
+                                                                    <option>Atenas</option>
+                                                                    <option>Guanacaste</option>
+                                                                    <option>Pacifico</option>
+                                                                    <option>San Carlos</option>
+                                                                </select>
+                                                            </div>
+                                                            <input type="submit" value="Aplicar cambios">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
                                 </div> 
                             </div> </div> 
                         <br/>
+
+                        <!--Esta tabla contiene todos las carreras registradas en la base de datos!-->
+
                         <div id="divLista" class="container"> 
                             <div class="row"> 
                                 <div class="col-xs-10"> 
@@ -161,7 +229,7 @@
                                                     <th>Código</th> 
                                                     <th>Nombre</th> 
                                                     <th>Sede</th> 
-                                                    <th>Opciones</th>
+
                                                 </tr>
                                             </thead> 
                                             <tbody>
@@ -172,6 +240,9 @@
                             </div> 
                         </div> 
                     </div>
+
+                    <!--Tab de los estudiantes!-->
+
                     <div class="tab-pane" id="estudiantes">
                         <div class="container"> 
                             <div class="row">
@@ -301,7 +372,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="txtContrasennaUsuario">Contraseña:</label>
-                                                                <input type="text" class="form-control" id="txtContrasennaUsuario" 
+                                                                <input type="password" class="form-control" id="txtContrasennaUsuario" 
                                                                        placeholder="Contraseña">
                                                             </div>
                                                             <input type="submit" value="Agregar">

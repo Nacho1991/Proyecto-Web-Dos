@@ -1,46 +1,29 @@
-var x = 10;
+$(function()
+{
+    $("#btnIniciarSesion").bind("click", function()
+    {
+        var vectorUsuariosLogin = JSON.parse(localStorage.getItem('Usuario'));
+        debugger;
+        if (vectorUsuariosLogin === null)
+        {
+            alert('No hay datos registrados en la base de datos');
+        } else {
+            var $txtNombreUsuario = $('#txtNombreUsuarioLogin');
+            var $txtContrasenna = $('#txtContrasennaLogin');
 
+            var strNombreUsuario = $.trim($txtNombreUsuario.val());
+            var strContrasenna = $.trim($txtContrasenna.val());
+            for (var pos = 0; pos < vectorUsuariosLogin.length; pos++) {
+                if (strNombreUsuario === vectorUsuariosLogin[pos].cedulaUsuario && strContrasenna === vectorUsuariosLogin[pos].contrasennaUsuario)
+                {
+                    debugger;
+                    $(location).attr('href', 'DashBoard.html');
+                } else
+                {
+                    alert('No existe un usuario registrado con los datos ingresados');
 
-function prepareBinding() {
-    $("#btnAgregarEstudiante").bind("click", function() {
-        my_alert('text 2');
+                }
+            }
+        }
     });
-//    $("#test_button").click(function() {
-//        saveStudent();
-//    });
-}
-
-function saveStudent() {
-    // obtener datos del form
-    var name = document.getElementById('first_name').value,
-            last_name = document.getElementById('last_name').value;
-
-    // crear objeto estudiante
-    var student = {"name": name, "last_name": last_name};
-
-    // leer los estudiantes de localstorage
-    var students = JSON.parse(localStorage.getItem('students'));
-    if (students === null) {
-        students = [];
-    }
-
-    // agregar el estudiante
-    students.push(student);
-
-    // volver guardar en localstoraage
-    localStorage.setItem('students', JSON.stringify(students));
-}
-
-function my_alert(text) {
-    alert(text);
-}
-
-function deleteStudent(element) {
-    if (confirm('Are you sure you want to delete user')) {
-        alert('User with name: ' + element.value + ' was deleted');
-        document.location.href = 'index_success.html';
-    } else {
-        document.location.href = 'index.html';
-    }
-}
-
+});

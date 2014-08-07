@@ -2,6 +2,7 @@ var objetoDatosCarrera;
 var objetoDatosEstudiante;
 var objetoDatosUsuario;
 
+//Funcion encargada de ubicar los tooltip en diferentes posiciones
 $(function()
 {
     $(".tip-top").tooltip({
@@ -17,14 +18,6 @@ $(function()
         placement: 'left'
     });
 });
-function prepararEnlace() {
-    $("#iniciarsesion").bind("click", function() {
-        $(this).button('Cargando').delay(1000).queue(function() {
-            $(this).button('Completado');
-            $(this).dequeue();
-        });
-    });
-}
 //Funcion encargada del manejo total de la carrera
 $(function() {
     //verificamos si el navegador soporta localStorage
@@ -34,18 +27,18 @@ $(function() {
                     'No se podrá utilizar la página :(');
         });
     }
+    //Esta funcion se encarga de mostrar o cargar la tabla de la carreras
     $.mostrarListaDeCarreras = function() {
         //tabla en la que mostraremos la lista (agregando filas con jQuery)
         var $objCuerpoTablaCarreras = $('#tblTablaCarreras').find('tbody');
         //vaciamos el cuerpo de la tabla
         $objCuerpoTablaCarreras.empty();
-        //hay carreras almacenados?
+        //Creamos un objetos y lo cargamos con los datos del LocalStorage
         var vectorCarreras = JSON.parse(localStorage.getItem('Carrera'));
-        debugger;
-        //Se valida si el objeto se encuentra vacio
-        if (vectorCarreras === null)
+        //Se valida si el objeto se encuentra vacio o nulo
+        if (vectorCarreras === null || vectorCarreras.length === 0)
         {
-            //agregamos una fila con un mensaje indicando que no hay carreras
+            //agregamos una sola fila con un mensaje indicando que no hay carreras
             $objCuerpoTablaCarreras.append(
                     $('<tr>').append(
                     $('<td>', {
@@ -56,52 +49,146 @@ $(function() {
                     )
                     );
         }
+        //En caso de contener datos el LocalStorage
         else if (vectorCarreras.length > 0) {
             //recorremos la lista de carreras (los items almacenados en localStorage)
             for (var pos = 0; pos < vectorCarreras.length; pos++) {
-                //guardamos en variables el código,nombre y sede de la carrera del localStorage
                 //agregamos una nueva fila con los datos de la carrera
                 $objCuerpoTablaCarreras.append(
                         $('<tr>').append(
-                        $('<td>', {//fila con el codigo
+                        $('<td>', {//fila con el codigo de la carrera
                             text: vectorCarreras[pos].codigoCarrera,
                             align: 'left'
 
                         }),
-                        $('<td>', {//fila con la carrera
+                        $('<td>', {//fila con el nombre de la carrera
                             text: vectorCarreras[pos].nombreCarrera,
                             align: 'left'
                         }),
                         $('<td>', {//fila con la sede
                             text: vectorCarreras[pos].sede,
                             align: 'left'
-                        }),
-                        $('<td>', {//fila para las opciones
-                            align: 'left',
-                            width: 60
-                        }).append(
-                        //agregamos a la fila el boton
-                        $('<input>', {
-                            type: 'button',
-                            class: 'clsEliminarCarrera',
-                            value: 'Eliminar'
-                        }).data('carreraEliminar', vectorCarreras.codCarrera) //por medio del metodo
-                        //data almacenamos en el boton el numero que debemos eliminar
-                        //(esto no sera visible, es un truquillo interesante)
-                        )
+                        })
                         )
                         );
             }
-            //no hay carreras almacenados
         }
     };
-    //funcion para limpiar los campos del formulario
+    //funcion para limpiar los campos del formulario de la carrera
     $.limpiarCamposDelFormularioCarrera = function() {
         //limpiamos el contenido de los campos de texto y la enfocamos
         $('#txtCodCarrera').val('').focus();
         $('#txtNombreCarrera').val('');
     };
+    //Limpaimos los TextBox del formulario de Editar
+    $.limpiarCamposFromularioCarreraEditar = function()
+    {
+        $('#txtCodCarreraEditar').va('').focus();
+        $('#txtNombreCarreraEditar').val('');
+    };
+    //Funcion encargada de eliminar el codigo de la carrera ingresado en el respectivo TextBox
+    $("#btnEliminarCarrera").bind("click", function() {
+        //Creamos un vector para que contenga los datos de las carreras
+        var vectorCarreraEliminar = JSON.parse(localStorage.getItem('Carrera'));
+        //Creamos un objeto que va a contener el dato del TextBox
+        var $txtCodigoCarrera = $('#txtEliminarCarrera');
+        //Creamos una variable y automaticamente le asignamos el valor de la variable anterior
+        var strTxtCodigoCarrera = $.trim($txtCodigoCarrera.val());
+        //Creamos un ciclo para recorrer el vector
+        for (var pos = 0; pos < vectorCarreraEliminar.length; pos++)
+        {
+            //Validamos si en alguna posicion del vector es igual al valor que contiene el TextBox
+            if (vectorCarreraEliminar[pos].codigoCarrera === strTxtCodigoCarrera)
+            {
+                //Borramos el contenido del vector en caso de haberse encontrado
+                delete vectorCarreraEliminar[pos];
+                //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
+                //nonde se le envia por parametro una funcion
+                vectorCarreraEliminar = vectorCarreraEliminar.filter(function(n) {
+                    //Validamos y retornamos el valor
+                    return n !== undefined;
+                }); 
+                //Le enviamos o guardamos los datos con el dato eliminado
+                localStorage.setItem('Carrera', JSON.stringify(vectorCarreraEliminar));
+                //Envocamos al metodo para actualizar la tabla con dato borrado
+                $.mostrarListaDeCarreras();
+                //Enviamos una alerta informando de la satisfactoria eliminación
+                alert('La carrera se ha eliminado satisfactoriamente');
+                //Frenamos el ciclo para ahorarnos micromilesimas de segundo
+                break;
+            }
+        }
 
+    });
+    //Esta funcion se encarga de la editacion de algun registro deseado
+    $('#frmEditarCarrera').on('submit', function(eEvento) {
+        //evitamos que el form se envie (para que no recargue la pagina)
+        eEvento.preventDefault();
+        //obtenemos una "copia" de los campos de texto
+        var $txtCodigoCarrera = $('#txtCodCarreraEditar');
+        var $txtNombreCarrera = $('#txtNombreCarreraEditar');
+
+        //Utilizamos Trim para eliminar los espacios en blanco del inicio y el final del TextBox
+        //Tambien verificamos si los datos provenientes estan vacios
+        if ($.trim($txtCodigoCarrera.val()) !== '' && $.trim($txtNombreCarrera.val()) !== '') {
+            //Creamos variables para almacenar los datos provenientes de los TextBox
+            var strCodigoCarreraEditar = $.trim($txtCodigoCarrera.val());
+            var strNombreCarreraEditar = $.trim($txtNombreCarrera.val());
+            var strSedeEditar = document.getElementById('cmbSedeEditar').value;
+            var vectorCarreraEditar = JSON.parse(localStorage.getItem('Carrera'));
+            //Creamos una variable inicializada en cero para darnos cuenta de si modifico o no
+            var modificado = 0;
+            //Verificamos si el vector tiene datos
+            if (vectorCarreraEditar !== null) {
+                debugger;
+                //Recorremos el vector con los datos recogidos
+                for (var pos = 0; pos < vectorCarreraEditar.length; pos++)
+                {
+                    //Validamos si el codigo de la carrera coincide con la del campo del vector
+                    if (vectorCarreraEditar[pos].codigoCarrera === strCodigoCarreraEditar)
+                    {
+                        //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
+                        vectorCarreraEditar[pos].codigoCarrera = strCodigoCarreraEditar;
+                        vectorCarreraEditar[pos].nombreCarrera = strNombreCarreraEditar;
+                        vectorCarreraEditar[pos].sede = strSedeEditar;
+                        //Guardamos los cambios en el LocalStorage
+                        localStorage.setItem('Carrera', JSON.stringify(vectorCarreraEditar));
+                        //Con este metodo actualizamos los datos en la tabla
+                        $.mostrarListaDeCarreras();
+                        //Tambien limpiamos los datos digitados en los TextBox
+                        $.limpiarCamposDelFormularioCarrera();
+                        //Igualamos en 1 la variable, esto indica de que si hubo modificaciones
+                        modificado = 1;
+                        //Mandamos una alerta informando del exito de la modificación
+                        alert('La carrera se ha modificado satisfactoriamente.');
+                        //Una vez editado frenamos el ciclo para que no siga recorriendolo
+                        break;
+
+                    }
+                }
+                //Validamos si la variable sigue estando en cero
+                if (modificado === 0)
+                {
+                    //Limpiamos los TextBox con el siguiente metodo
+                    $.limpiarCamposDelFormularioCarrera();
+                    debugger;
+                    //Enviamos una alerta informando de que no se encontro ningun codigo
+                    alert('No se ha encontrado ningún registro asociado al siguiente código: ' + strCodigoCarreraEditar);
+                }
+            } else
+            {
+                //Enviamos una alerta informando de que no hay registros en la base de datos
+                alert('No hay registros en la base de datos');
+                //Actualizamos aun sin tener registros.
+                $.mostrarListaDeCarreras();
+                //limpiamos el formulario
+                $.limpiarCamposDelFormularioCarrera();
+            }
+        } else {
+            //en caso de que algun campo este vacio mandamos una alerta de los campos faltantes
+            alert('Faltan datos importantes, por favor corrija para continuar.');
+        }
+    });
     //evento submit del formulario
     $('#frmAgregarCarrera').on('submit', function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
@@ -116,16 +203,22 @@ $(function() {
             var strCodigoCarrera = $.trim($txtCodigoCarrera.val());
             var strNombreCarrera = $.trim($txtNombreCarrera.val());
             var strSede = document.getElementById('cmbSede').value;
+            //Dentro del objeto almacenamos los datos escritos en los TextBox
             objetoDatosCarrera = {
                 codigoCarrera: strCodigoCarrera,
                 nombreCarrera: strNombreCarrera,
                 sede: strSede
             };
+            //Creamos un vector y le asignamos los datos de las carreras almacenados en LocalStorage
             var vectorCarrera = JSON.parse(localStorage.getItem('Carrera'));
+            //Validamos si no existen registros de carreras
             if (vectorCarrera === null) {
+                //Convertimos la variable en vector
                 vectorCarrera = [];
             }
+            //Enviamos los datos que contiene o se le asignaron al objeto de las carreras en vector creado anteriormente
             vectorCarrera.push(objetoDatosCarrera);
+            //Le enviamos como llave la palabra "Carrera" y como contenido le aginamos el vector con todos lo datos alamcenados
             localStorage.setItem('Carrera', JSON.stringify(vectorCarrera));
             //cargamos en el cuerpo de la tabla la lista de contactos
             $.mostrarListaDeCarreras();
@@ -139,37 +232,23 @@ $(function() {
             $txtNombreCarrera.val('');
         }
     });
-
-    //clic en el boton para eliminar una carrera
-    //se usa live en vez de on, porque el boton se creo en tiempo de ejecucion
-    $('.clsEliminarCarrera').live('click', function() {
-        //obtenemos el código que se va a eliminar (esta almacenado en data)
-        var strCarreraEliminar = $(this).data('carreraEliminar');
-        if (confirm('¿Desea eliminar la carrera seleccionada?')) {
-            //eliminamos el código usando la clave que esta asociada al nombre
-            //el item se guardo usando como clave el código de la carrera
-            localStorage.removeItem(strCarreraEliminar);
-            //cargamos en el cuerpo de la tabla la lista de carreras
-            $.mostrarListaDeCarreras();
-        }
-    });
     //cuando la pagina carga mostramos la lista de carreras.
     $.mostrarListaDeCarreras();
 });
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
 ////////////////////////////////////////////////////
-//Funcion encargada del manejo total de la carrera
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+//Funcion encargada del manejo total de la carrera//
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 $(function() {
     //verificamos si el navegador soporta localStorage
     if (!localStorage) {
         setTimeout(function() {
             alert('Lo siento, pero su navegador no soporta localStorage.' +
-                    'No podrá utilizar la agenda :(');
+                    'No podrá utilizar la aplicación Web :(');
         });
     }
 
@@ -184,7 +263,7 @@ $(function() {
                 delete vectorEstudiantes[pos];
                 vectorEstudiantes = vectorEstudiantes.filter(function(n) {
                     return n !== undefined;
-                }); // (JS 1.6 and above)
+                });
                 localStorage.setItem('Estudiante', JSON.stringify(vectorEstudiantes));
             }
         }
@@ -287,16 +366,6 @@ $(function() {
         $('#txtNombreEstudiante').val('');
         $('#txtApellidosEstudiante').val('');
     };
-
-    function prepararEnlace() {
-//        $("#btnAgregarEstudiante").bind("click", function() {
-//            my_alert('text 2');
-//        });
-        $("#btnAgregarEstudiante").click(function() {
-            my_alert('text 2');
-            //saveStudent();
-        });
-    }
 
     function my_alert(text) {
         alert(text);
@@ -474,30 +543,6 @@ $(function() {
      document.location.href = 'index.html';
      }
      }*/
-    $("#btnIniciarSesion").bind("click", function()
-    {
-        var vectorUsuariosLogin = JSON.parse(localStorage.getItem('Usuario'));
-        if (vectorUsuariosLogin === null)
-        {
-            alert('No hay datos registrados en la base de datos');
-        } else {
-            var $txtNombreUsuario = $('#txtNombreUsuarioLogin');
-            var $txtContrasenna = $('#txtContrasennaLogin');
-
-            var strNombreUsuario = $.trim($txtNombreUsuario.val());
-            var strContrasenna = $.trim($txtContrasenna.val());
-            for (var pos = 0; pos < vectorUsuariosLogin.length; pos++) {
-                if (strNombreUsuario === vectorUsuariosLogin[pos].cedulaUsuario && strContrasenna === vectorUsuariosLogin[pos].contrasennaUsuario)
-                {
-                    $(location).attr('href', 'DashBoard.html');
-                } else
-                {
-                    alert('No existe un usuario registrado con los datos ingresados');
-
-                }
-            }
-        }
-    });
     //evento submit del formulario
     $('#frmAgregarUsuario').on('submit', function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
