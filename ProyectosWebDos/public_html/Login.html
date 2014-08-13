@@ -1,37 +1,183 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Iniciar sesión</title>
         <link href="CSS/Estilos.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="CSS/bootstrap.css" rel="stylesheet">
+        <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="CSS/style.css">
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-        <script type="text/javascript" src="JavaScript/Funcion.js"></script>
+        <link href="css/main.css" rel="stylesheet">
+        <script type="text/javascript" src="JavaScript/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="JavaScript/bootstrap.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-4 col-md-offset-4">
-                    
-                    <div class="account-wall">
-                        <br/>
-                        <br/>
-                        <form class="form-signin">
-                            <br/>
-                            <img class="center-block img-thumbnail"  src="Imagenes/Logo.png" alt="Imagen responsive">
-                            <br/>
-                            <input id="txtCedulaLogin" type="text" class="form-control" placeholder="Cédula" required autofocus>
-                            <input id="txtContrasennaLogin" type="password" class="form-control" placeholder="Contraseña" required>
-                            <button id="btnIniciarSesion" class="btn btn-lg btn-primary btn-block" type="button">
-                                Iniciar sesión</button>
-                        </form>
+
+        <!--Presentación!-->
+
+        <div class="container"> 
+            <hr class="prettyline">
+            <br>
+            <center>
+                <h1>
+                    <b>Bienvenido</b>
+                </h1>
+                <h3>Por favor inicie sesión para continuar</h3>
+                <img class="center-block img-thumbnail"  src="Imagenes/Logo.png" alt="Imagen responsive">
+                <em>Universidad Técnica Nacional</em>
+                <br>
+                <br>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalSesion">Iniciar sesión / Registrase</button>
+            </center>
+            <br>
+            <hr class="prettyline">
+        </div>
+
+        <!-- Modelo encargado para el inicio y registro de sesión-->
+
+        <div class="modal fade bs-modal-sm" id="myModalSesion" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <br>
+                    <div class="bs-example bs-example-tabs">
+                        <ul id="myTab" class="nav nav-tabs">
+                            <li class="active"><a href="#iniciarSesion" data-toggle="tab">Iniciar sesión</a></li>
+                            <li class=""><a href="#registrase" data-toggle="tab">Registrase</a></li>
+                        </ul>
+                    </div>
+
+                    <!--Cuerpo del modelo!-->
+
+                    <div class="modal-body">
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="iniciarSesion">
+                                <form class="form-horizontal">
+                                    <fieldset>
+
+                                        <!--Cedula!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtCedulaLogin">Cédula:</label>
+                                            <div class="controls">
+                                                <input id="txtCedulaLogin" type="text" class="form-control" placeholder="Cédula">
+                                            </div>
+                                        </div>
+
+                                        <!--Contraseña!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtContrasennaLogin">Contraseña:</label>
+                                            <div class="controls">
+                                                <input id="txtContrasennaLogin" class="form-control" type="password" placeholder="Contraseña" >
+                                            </div>
+                                        </div>
+
+                                        <!--Recordar contraseña!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="chkRecordarme"></label>
+                                            <div class="controls">
+                                                <label class="checkbox inline" for="rememberme-0">
+                                                    <input type="checkbox" name="chkRecordarme" id="rememberme-0" value="Recordarme">
+                                                    Recordarme
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!--Btón!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="btnIniciarSesion"></label>
+                                            <div class="controls">
+                                                <center>
+                                                    <button id="btnIniciarSesion" type="button" class="btn btn-success">Iniciar sesión</button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <!--Tab para registrarse!-->
+
+                            <div class="tab-pane fade" id="registrase">
+                                <form class="form-horizontal">
+                                    <fieldset>
+
+                                        <!--Cedula del nuevo usuario!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtCedulaNuevoRegistro">Cédula:</label>
+                                            <div class="controls">
+                                                <input id="txtCedulaNuevoRegistro" name="txtCedulaNuevoRegistro" class="form-control" type="text" placeholder="Cédula"  required="">
+                                            </div>
+                                        </div>
+
+                                        <!--Nombre del nuevo usuario!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtNombreNuevoRegsitro">Nombre:</label>
+                                            <div class="controls">
+                                                <input id="txtNombreNuevoRegsitro" name="txtNombreNuevoRegsitro" class="form-control" type="text" placeholder="Nombre" required="">
+                                            </div>
+                                        </div>
+
+                                        <!--Apellidos del nuevo usuario!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtApellidosNuevoRegistro">Apellidos:</label>
+                                            <div class="controls">
+                                                <input id="txtApellidosNuevoRegistro" name="txtApellidosNuevoRegistro" class="form-control" type="text" placeholder="Apellidos" required="">
+                                            </div>
+                                        </div>
+
+                                        <!--Edad del nuevo usuario!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtEdadNuevoRegistro">Edad:</label>
+                                            <div class="controls">
+                                                <input id="txtEdadNuevoRegistro" class="form-control" name="txtEdadNuevoRegistro" type="password" placeholder="Edad" required="">
+                                            </div>
+                                        </div>
+
+                                        <!--Contraseña del nuevo usuario!-->
+
+                                        <div class="control-group">
+                                            <label class="control-label" for="txtContrasennaNuevoRegistro">Contraseña:</label>
+                                            <div class="controls">
+                                                <input id="txtContrasennaNuevoRegistro" class="form-control" name="txtContrasennaNuevoRegistro" type="password" placeholder="Contraseña" required="">
+                                            </div>
+                                        </div>
+                                        <!--Privilegios del nuevo usuario!-->
+                                        <br>
+                                        <div class="control-group">
+                                            <label for="cmbPrivilegiosNuevoRegistro">Pribilegios:</label>
+                                            <select id="cmbPrivilegiosNuevoRegistro" class="form-control selectpicker">
+                                                <option>Administrador</option>
+                                                <option>Director de carrera</option>
+                                            </select>
+                                        </div>
+                                        <!--Botón!-->
+                                        <div class="control-group">
+                                            <label class="control-label" for="btnRegistraseLogin"></label>
+                                            <div class="controls">
+                                                <center>
+                                                    <button type="button" id="btnRegistraseLogin" class="btn btn-success">Registrase e iniciar</button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Botón!-->
+                    <div class="modal-footer">
+                        <center>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                        </center>
                     </div>
                 </div>
             </div>

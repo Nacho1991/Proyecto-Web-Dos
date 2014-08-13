@@ -56,7 +56,9 @@
                     <!--Tab del menu principal!-->
 
                     <div class="tab-pane active" id="dashboard">
-                        <h3 class="page-header">Dashboard</h3>
+                        <center>
+                            <h3 class="page-header">Dashboard</h3>
+                        </center>
                         <div class="row flat center-block">
                             <div class="col-lg-3 col-md-3 col-xs-4">
                                 <ul class="plan plan3">
@@ -115,23 +117,49 @@
                         <div class="container"> 
                             <div class="row"> 
                                 <div class="col-xs-12"> 
-                                    <h3 class="page-header">Lista de carreras</h3> 
+                                    <center>
+                                        <h3 class="page-header">Lista de carreras</h3> 
+                                    </center>
                                     <div class="col-xs-6">
                                         <div class="input-group">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button>
-                                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarCarrera">Editar</button> 
+                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button>
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editarCarrera">Editar</button> 
                                             </span>
                                             <input id="txtEliminarCarrera" type="text" class="form-control" placeholder="Código a eliminar">
                                             <span class="input-group-btn">
-                                                <button id="btnEliminarCarrera" type="button" class="btn btn-success btn-sm">Eliminar</button>
+                                                <button id="btnEliminarCarrera" type="button" class="btn btn-danger btn-sm">Eliminar</button>
                                             </span>
                                             <input id="txtVerDetallesCarrera" type="text" class="form-control" placeholder="Código a detallar">
                                             <span class="input-group-btn">
-                                                <button id="btnVerDetallesCarrera" type="button" class="btn btn-success btn-sm">Ver detalles</button>
+                                                <button id="btnVerDetallesCarrera" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#">Ver detalles</button>
                                             </span>
                                         </div>
+                                    </div>
 
+                                    <!--Este modelo se encarga de mostrar un mensaje de advertencia!-->
+
+                                    <div class="modal fade"  id="mensajecarreraresultado">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                    <center>
+                                                        <h4 class="modal-title">Advertencia</h4>
+                                                    </center>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <center>
+                                                        <p>No se han encontrado resultados.</p>
+                                                    </center>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <center>
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <!--Este modelo es el encargado de registrar las carreras!-->
@@ -142,7 +170,9 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                    <h4 class="page-header">Agregar carrera</h4>
+                                                    <center>
+                                                        <h4 class="page-header">Agregar carrera</h4>
+                                                    </center>
                                                     <div class="modal-body">
                                                         <form id="frmAgregarCarrera">
                                                             <div class="form-group">
@@ -169,7 +199,10 @@
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button id="btnAgregarCarrera" class="btn btn-info" type="button">Agregar</button>
+                                                        <center>
+                                                            <button id="btnAgregarCarrera" class="btn btn-success" type="button">Agregar</button>
+                                                            <button id="btnSalirCarrera" class="btn btn-danger" data-dismiss="modal" type="button">Salir</button>
+                                                        </center>
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,7 +218,9 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                    <h4 class="panel page-header">Editar carrera</h4>
+                                                    <center>
+                                                        <h4 class="panel page-header">Editar carrera</h4>
+                                                    </center>
                                                     <div class="modal-body">
                                                         <form id="frmEditarCarrera">
                                                             <div class="form-group">
@@ -212,7 +247,10 @@
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button id="btnEditarCarrera" type="button" class="btn btn-info">Aplicar cambios</button>
+                                                        <center>
+                                                            <button id="btnEditarCarrera" type="button" class="btn btn-success">Aplicar cambios</button>
+                                                            <button id="btnSalirEditarCarrera" type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+                                                        </center>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,6 +259,43 @@
                                 </div> 
                             </div> </div> 
                         <br/>
+
+                        <!--Este modelo se encarga de mostrar los detalles de la carrera!-->
+
+                        <div class="modal fade"  id="detallecarrera">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                        <center>
+                                            <h4 class="page-header">Detalles de la carrera</h4>
+                                        </center>
+                                        <div class="modal-body">
+                                            <form id="frmAgregarCarrera">
+                                                <div class="form-group">
+                                                    <label for="txtCodCarreraDetallar">Código de la carrera:</label>
+                                                    <input readonly="" type="text" class="form-control" id="txtCodCarreraDetallar">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtNombreCarreraDetallar">Nombre de la carrera:</label>
+                                                    <input readonly="" type="text" class="form-control" id="txtNombreCarreraDetallar">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="txtSedeDetallar">Sede:</label>
+                                                    <input readonly="" type="text" class="form-control" id="txtSedeDetallar" >
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <center>
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div> 
 
                         <!--Esta tabla contiene todos las carreras registradas en la base de datos!-->
 
@@ -250,135 +325,214 @@
                     <div class="tab-pane" id="estudiantes">
                         <div class="container"> 
                             <div class="row">
-                                <div class="col-xs-6">
-                                    <h3 class="page-header">Lista de estudiantes</h3> 
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevoEstudiante">Nuevo</button>
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarEstudiante">Editar</button> 
-                                        </span>
-                                        <input id="txtEliminarEstudiante" type="text" class="form-control" placeholder="Cédula a eliminar">
-                                        <span class="input-group-btn">
-                                            <button id="btnEliminarEstudiante" type="button" class="btn btn-success btn-sm">Eliminar</button>
-                                        </span>
-                                        <input id="txtVerDetallesEstudiante" type="text" class="form-control" placeholder="Cédula a detallar">
-                                        <span class="input-group-btn">
-                                            <button id="btnVerDetallesEstudiante" type="button" class="btn btn-success btn-sm">Ver detalles</button>
-                                        </span>
+                                <div class="col-xs-12">
+                                    <center>
+                                        <h3 class="page-header">Lista de estudiantes</h3> 
+                                    </center>
+                                    <div class="col-xs-6">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevoEstudiante">Nuevo</button>
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editarEstudiante">Editar</button> 
+                                            </span>
+                                            <input id="txtEliminarEstudiante" type="text" class="form-control" placeholder="Cédula a eliminar">
+                                            <span class="input-group-btn">
+                                                <button id="btnEliminarEstudiante" type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </span>
+                                            <input id="txtVerDetallesEstudiante" type="text" class="form-control" placeholder="Cédula a detallar">
+                                            <span class="input-group-btn">
+                                                <button id="btnVerDetallesEstudiante" type="button" class="btn btn-success btn-sm">Ver detalles</button>
+                                            </span>
 
 
-                                        <!--Este modelo se encarga de almacenar los datos del estudiante!-->
+                                            <!--Este modelo se encarga de registrar los datos del estudiante!-->
 
-                                        <div class="modal fade"  id="nuevoEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                        <h4 class="page-header">Agregar estudiante</h4>
+                                            <div class="modal fade"  id="nuevoEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                                            <center>
+                                                                <h4 class="page-header">Agregar estudiante</h4>
+                                                            </center>
+                                                            <div class="modal-body">
+                                                                <form id="frmAgregarEstudiante">
+                                                                    <div class="form-group">
+                                                                        <label for="txtCedulaEstudiante">Cédula:</label>
+                                                                        <input type="text" class="form-control" id="txtCedulaEstudiante"
+                                                                               placeholder="Cédula">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtNombreEstudiante">Nombre:</label>
+                                                                        <input type="text" class="form-control" id="txtNombreEstudiante" 
+                                                                               placeholder="Nombre">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtApellidosEstudiante">Apellidos:</label>
+                                                                        <input type="text" class="form-control" id="txtApellidosEstudiante" 
+                                                                               placeholder="Apellidos">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="cmbCarreraEstudiante">Carrera:</label>
+                                                                        <select id="cmbCarreraEstudiante" class="form-control selectpicker">
+                                                                            <option>AGRH - Administración De Recursos Humanos</option>
+                                                                            <option>COEX - Comercia Exterior</option>
+                                                                            <option>ASA - Asistencia Administrativa</option>
+                                                                            <option>AA - Administración Aduanera</option>
+                                                                            <option>COFI - Contabilidad y Finanzas</option>
+                                                                            <option>IGA - Ingeniería Gestión Ambiental</option>
+                                                                            <option>ISW - Ingenieria en Software</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="cmbNivelIngles">Nivel de ingles</label>
+                                                                        <select id="cmbNivelIngles" class="form-control selectpicker">
+                                                                            <option>Nivel 1</option>
+                                                                            <option>Nivel 2</option>
+                                                                            <option>Nivel 3</option>
+                                                                            <option>Nivel Avanzado</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <center>
+                                                                    <button id="btnAgregarEstudiante" type="button" class="btn btn-success">Agregar</button>
+                                                                    <button id="btnSalirAgregarEstudiante" type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <!--Este modal se encarga de editar los estudiantes registrados en la base de datos!-->
+
+                                            <div class="modal fade"  id="editarEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                            <center>
+                                                                <h4 class="page-header">Editar estudiante</h4>
+                                                            </center>
+                                                            <div class="modal-body">
+                                                                <form id="frmEditarEstudiante">
+                                                                    <div class="form-group">
+                                                                        <label for="txtCedulaEstudianteEditar">Cédula:</label>
+                                                                        <input type="text" class="form-control" id="txtCedulaEstudianteEditar"
+                                                                               placeholder="Cédula">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtNombreEstudianteEditar">Nombre:</label>
+                                                                        <input type="text" class="form-control" id="txtNombreEstudianteEditar" 
+                                                                               placeholder="Nombre">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtApellidosEstudianteEditar">Apellidos:</label>
+                                                                        <input type="text" class="form-control" id="txtApellidosEstudianteEditar" 
+                                                                               placeholder="Apellidos">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="cmbCarreraEstudianteEditar">Carrera:</label>
+                                                                        <select id="cmbCarreraEstudianteEditar" class="form-control selectpicker">
+                                                                            <option>AGRH - Administración De Recursos Humanos</option>
+                                                                            <option>COEX - Comercia Exterior</option>
+                                                                            <option>ASA - Asistencia Administrativa</option>
+                                                                            <option>AA - Administración Aduanera</option>
+                                                                            <option>COFI - Contabilidad y Finanzas</option>
+                                                                            <option>IGA - Ingeniería Gestión Ambiental</option>
+                                                                            <option>ISW - Ingenieria en Software</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="cmbNivelInglesEditar">Nivel de ingles</label>
+                                                                        <select id="cmbNivelInglesEditar" class="form-control selectpicker">
+                                                                            <option>Nivel 1</option>
+                                                                            <option>Nivel 2</option>
+                                                                            <option>Nivel 3</option>
+                                                                            <option>Nivel Avanzado</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <center>
+                                                                    <button id="btnEditarEstudiante" type="button" data-dismiss="modal" class="btn btn-success">Aplicar cambios</button>
+                                                                    <button id="btnCancelarEstudianteEditar" type="button" class="btn btn-danger" data-dismiss="modal">Salir</button>
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <!--Este modelo se encarga de enviar un mensaje de advertencia!-->
+
+                                            <div class="modal fade"  id="mensajeEstudianteResultado">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                            <center>
+                                                                <h4 class="modal-title">Advertencia</h4>
+                                                            </center>
+                                                        </div>
                                                         <div class="modal-body">
-                                                            <form id="frmAgregarEstudiante">
-                                                                <div class="form-group">
-                                                                    <label for="txtCedulaEstudiante">Cédula:</label>
-                                                                    <input type="text" class="form-control" id="txtCedulaEstudiante"
-                                                                           placeholder="Cédula">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtNombreEstudiante">Nombre:</label>
-                                                                    <input type="text" class="form-control" id="txtNombreEstudiante" 
-                                                                           placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtApellidosEstudiante">Apellidos:</label>
-                                                                    <input type="text" class="form-control" id="txtApellidosEstudiante" 
-                                                                           placeholder="Apellidos">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="cmbCarreraEstudiante">Carrera:</label>
-                                                                    <select id="cmbCarreraEstudiante" class="form-control selectpicker">
-                                                                        <option>AGRH - Administración De Recursos Humanos</option>
-                                                                        <option>COEX - Comercia Exterior</option>
-                                                                        <option>ASA - Asistencia Administrativa</option>
-                                                                        <option>AA - Administración Aduanera</option>
-                                                                        <option>COFI - Contabilidad y Finanzas</option>
-                                                                        <option>IGA - Ingeniería Gestión Ambiental</option>
-                                                                        <option>ISW - Ingenieria en Software</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="cmbNivelIngles">Nivel de ingles</label>
-                                                                    <select id="cmbNivelIngles" class="form-control selectpicker">
-                                                                        <option>Nivel 1</option>
-                                                                        <option>Nivel 2</option>
-                                                                        <option>Nivel 3</option>
-                                                                        <option>Nivel Avanzado</option>
-                                                                    </select>
-                                                                </div>
-                                                            </form>
+                                                            <center>
+                                                                <p>No se han encontrado resultados.</p>
+                                                            </center>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button id="btnAgregarEstudiante" type="button" class="btn btn-info">Agregar</button>
+                                                            <center>
+                                                                <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+                                                            </center>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> 
-                                        </div>
+                                            </div>
 
-                                        <!--Este modal se encarga de editar los estudiantes registrados en la base de datos!-->
 
-                                        <div class="modal fade"  id="editarEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                                                        <h4 class="page-header">Editar estudiante</h4>
-                                                        <div class="modal-body">
-                                                            <form id="frmEditarEstudiante">
-                                                                <div class="form-group">
-                                                                    <label for="txtCedulaEstudianteEditar">Cédula:</label>
-                                                                    <input type="text" class="form-control" id="txtCedulaEstudianteEditar"
-                                                                           placeholder="Cédula">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtNombreEstudianteEditar">Nombre:</label>
-                                                                    <input type="text" class="form-control" id="txtNombreEstudianteEditar" 
-                                                                           placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtApellidosEstudianteEditar">Apellidos:</label>
-                                                                    <input type="text" class="form-control" id="txtApellidosEstudianteEditar" 
-                                                                           placeholder="Apellidos">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="cmbCarreraEstudianteEditar">Carrera:</label>
-                                                                    <select id="cmbCarreraEstudianteEditar" class="form-control selectpicker">
-                                                                        <option>AGRH - Administración De Recursos Humanos</option>
-                                                                        <option>COEX - Comercia Exterior</option>
-                                                                        <option>ASA - Asistencia Administrativa</option>
-                                                                        <option>AA - Administración Aduanera</option>
-                                                                        <option>COFI - Contabilidad y Finanzas</option>
-                                                                        <option>IGA - Ingeniería Gestión Ambiental</option>
-                                                                        <option>ISW - Ingenieria en Software</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="cmbNivelInglesEditar">Nivel de ingles</label>
-                                                                    <select id="cmbNivelInglesEditar" class="form-control selectpicker">
-                                                                        <option>Nivel 1</option>
-                                                                        <option>Nivel 2</option>
-                                                                        <option>Nivel 3</option>
-                                                                        <option>Nivel Avanzado</option>
-                                                                    </select>
-                                                                </div>
+                                            <!--Este modelo se encarga de mostrar los detalles del estudiante!-->
 
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button id="btnEditarEstudiante" type="button" data-dismiss="modal" class="btn btn-info">Agregar</button>
-                                                            <button id="btnCancelarEstudianteEditar" type="button" class="btn btn-info" data-dismiss="modal">Salir</button>
+                                            <div class="modal fade"  id="detalleestudiante">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                                            <center>
+                                                                <h4 class="page-header">Detalles de la carrera</h4>
+                                                            </center>
+                                                            <div class="modal-body">
+                                                                <form id="frmDetallesEstudiante">
+                                                                    <div class="form-group">
+                                                                        <label for="txtCedulaEstudianteDetallar">Cédula:</label>
+                                                                        <input readonly="" type="text" class="form-control" id="txtCedulaEstudianteDetallar">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtNombreEstudianteDetallar">Nombre:</label>
+                                                                        <input readonly="" type="text" class="form-control" id="txtNombreEstudianteDetallar">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtApellidosEstudianteDetallar">Apellidos:</label>
+                                                                        <input readonly="" type="text" class="form-control" id="txtApellidosEstudianteDetallar">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtNivelInglesDetallar">Nivel de inglés:</label>
+                                                                        <input readonly="" type="text" class="form-control" id="txtNivelInglesDetallar">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <center>
+                                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                                                                </center>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div> 
+                                                </div> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -417,122 +571,235 @@
                     <div class="tab-pane" id="usuarios">
                         <div class="container"> 
                             <div class="row">
-                                <div class="col-xs-6">
-                                    <h3 class="page-header">Lista de usuarios</h3> 
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevousuario">Nuevo</button> 
-                                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarUsuario">Editar</button> 
-                                        </span>
-                                        <input id="txtEliminarUsuario" type="text" class="form-control" placeholder="Cédula a eliminar">
-                                        <span class="input-group-btn">
-                                            <button id="btnEliminarUsuario" type="button" class="btn btn-success btn-sm">Eliminar</button>
-                                        </span>
-                                        <input id="txtVerDetallesUsuario" type="text" class="form-control" placeholder="Cédula a detallar">
-                                        <span class="input-group-btn">
-                                            <button id="btnVerDetallesUsuario" type="button" class="btn btn-success btn-sm">Ver detalles</button>
-                                        </span>
+                                <div class="col-xs-12">
+                                    <center>
+                                        <h3 class="page-header">Lista de usuarios</h3>
+                                    </center>
+                                    <div class="col-xs-6">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevousuario">Nuevo</button> 
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editarUsuario">Editar</button> 
+                                            </span>
+                                            <input id="txtEliminarUsuario" type="text" class="form-control" placeholder="Cédula a eliminar">
+                                            <span class="input-group-btn">
+                                                <button id="btnEliminarUsuario" type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </span>
+                                            <input id="txtVerDetallesUsuario" type="text" class="form-control" placeholder="Cédula a detallar">
+                                            <span class="input-group-btn">
+                                                <button id="btnVerDetallesUsuario" type="button" class="btn btn-success btn-sm">Ver detalles</button>
+                                            </span>
 
-                                        <!--Este modelo se encarga de registrar los usuarios!-->
+                                            <!--Este modelo se encarga de registrar los usuarios!-->
 
-                                        <div class="modal fade"  id="nuevousuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                                                        <h4 class="page-header">Agregar usuarios</h4>
+                                            <div class="modal fade"  id="nuevousuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                            <center>
+                                                                <h4 class="page-header">Agregar usuarios</h4>
+                                                            </center>
+                                                            <div class="modal-body">
+                                                                <form id="frmAgregarUsuario">
+                                                                    <!--Cedula!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtCedulaUsuario">Cédula:</label>
+                                                                        <input type="text" class="form-control" id="txtCedulaUsuario"
+                                                                               placeholder="Cédula">
+                                                                    </div>
+                                                                    <!--Nombre!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtNombreUsuario">Nombre:</label>
+                                                                        <input type="text" class="form-control" id="txtNombreUsuario" 
+                                                                               placeholder="Nombre">
+                                                                    </div>
+                                                                    <!--Apellidos!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtApellidosUsuario">Apellidos:</label>
+                                                                        <input type="text" class="form-control" id="txtApellidosUsuario" 
+                                                                               placeholder="Apellidos">
+                                                                    </div>
+                                                                    <!--Edad!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtEdadUsuario">Edad:</label>
+                                                                        <input type="text" class="form-control" id="txtEdadUsuario" 
+                                                                               placeholder="Edad">
+                                                                    </div>
+                                                                    <!--Privilegios!-->
+                                                                    <div class="form-group">
+                                                                        <label for="cmbPrivilegios">Privilegios:</label>
+                                                                        <select id="cmbPrivilegios" class="form-control selectpicker">
+                                                                            <option>Administrador</option>
+                                                                            <option>Director de carrera</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!--Contraseña!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtContrasennaUsuario">Contraseña:</label>
+                                                                        <input type="password" class="form-control" id="txtContrasennaUsuario" 
+                                                                               placeholder="Contraseña">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <!--Botón!-->
+                                                            <div class="modal-footer">
+                                                                <center>
+                                                                    <button class="btn btn-success" id="btnAgregarUsuario" type="button" >Agregar</button>
+                                                                    <button class="btn btn-danger" id="btnSalirAgregarUsuario" type="button" data-dismiss="modal">Salir</button>
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <!--Este modelo se encarga de editar a los usuarios!-->
+
+                                            <div class="modal fade"  id="editarUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                            <center>
+                                                                <h4 class="page-header">Editar usuarios</h4>
+                                                            </center>
+                                                            <div class="modal-body">
+                                                                <form id="frmAgregarUsuario">
+                                                                    <!--Cedula!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtCedulaUsuarioEditar">Cédula:</label>
+                                                                        <input type="text" class="form-control" id="txtCedulaUsuarioEditar"
+                                                                               placeholder="Cédula">
+                                                                    </div>
+                                                                    <!--Nombre!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtNombreUsuarioEditar">Nombre:</label>
+                                                                        <input type="text" class="form-control" id="txtNombreUsuarioEditar" 
+                                                                               placeholder="Nombre">
+                                                                    </div>
+                                                                    <!--Apellidos!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtApellidosUsuarioEditar">Apellidos:</label>
+                                                                        <input type="text" class="form-control" id="txtApellidosUsuarioEditar" 
+                                                                               placeholder="Apellidos">
+                                                                    </div>
+                                                                    <!--Edad!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtEdadUsuarioEditar">Edad:</label>
+                                                                        <input type="text" class="form-control" id="txtEdadUsuarioEditar" 
+                                                                               placeholder="Edad">
+                                                                    </div>
+                                                                    <!--Privilegios!-->
+                                                                    <div class="form-group">
+                                                                        <label for="cmbPrivilegiosEditar">Privilegios:</label>
+                                                                        <select id="cmbPrivilegiosEditar" class="form-control selectpicker">
+                                                                            <option>Administrador</option>
+                                                                            <option>Director de carrera</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!--Contraseña!-->
+                                                                    <div class="form-group">
+                                                                        <label for="txtContrasennaUsuarioEditar">Contraseña:</label>
+                                                                        <input type="password" class="form-control" id="txtContrasennaUsuarioEditar" 
+                                                                               placeholder="Contraseña">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <!--Botón!-->
+                                                            <div class="modal-footer">
+                                                                <center>
+                                                                    <button class="btn btn-success" id="btnEditarUsuario" type="button" >Aplicar cambios</button>
+                                                                    <button class="btn btn-danger" id="btnSalirEditarUsuario" type="button" data-dismiss="modal">Salir</button>
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <!--Este modelo se encarga de mostrar los detalles del estudiante!-->
+
+                                            <div class="modal fade"  id="detalleUsuario">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                            <center>
+                                                                <h4 class="modal-title">Detalles de usuarios</h4>
+                                                            </center>
+                                                        </div>
                                                         <div class="modal-body">
-                                                            <form id="frmAgregarUsuario">
+                                                            <form id="frmDetallesUsuario">
+                                                                <!--Cedula!-->
                                                                 <div class="form-group">
-                                                                    <label for="txtCedulaUsuario">Cédula:</label>
-                                                                    <input type="text" class="form-control" id="txtCedulaUsuario"
-                                                                           placeholder="Cédula">
+                                                                    <label for="txtCedulaUsuarioDetalles">Cédula:</label>
+                                                                    <input readonly="" type="text" class="form-control" id="txtCedulaUsuarioDetalles">
                                                                 </div>
+                                                                <!--Nombre!-->
                                                                 <div class="form-group">
-                                                                    <label for="txtNombreUsuario">Nombre:</label>
-                                                                    <input type="text" class="form-control" id="txtNombreUsuario" 
-                                                                           placeholder="Nombre">
+                                                                    <label for="txtNombreUsuarioDetalles">Nombre:</label>
+                                                                    <input readonly="" type="text" class="form-control" id="txtNombreUsuarioDetalles">
                                                                 </div>
+                                                                <!--Apellidos!-->
                                                                 <div class="form-group">
-                                                                    <label for="txtApellidosUsuario">Apellidos:</label>
-                                                                    <input type="text" class="form-control" id="txtApellidosUsuario" 
-                                                                           placeholder="Apellidos">
+                                                                    <label for="txtApellidosUsuarioDetalles">Apellidos:</label>
+                                                                    <input readonly="" type="text" class="form-control" id="txtApellidosUsuarioDetalles">
                                                                 </div>
+                                                                <!--Edad!-->
                                                                 <div class="form-group">
-                                                                    <label for="txtEdadUsuario">Edad:</label>
-                                                                    <input type="text" class="form-control" id="txtEdadUsuario" 
-                                                                           placeholder="Edad">
+                                                                    <label for="txtEdadUsuarioDetalles">Edad:</label>
+                                                                    <input readonly="" type="text" class="form-control" id="txtEdadUsuarioDetalles">
                                                                 </div>
+                                                                <!--Privilegios!-->
                                                                 <div class="form-group">
-                                                                    <label for="cmbPrivilegios">Privilegios:</label>
-                                                                    <select id="cmbPrivilegios" class="form-control selectpicker">
-                                                                        <option>Administrador</option>
-                                                                    </select>
+                                                                    <label for="txtPrivilegiosUsuarioDetalles">Privilegios:</label>
+                                                                    <input readonly="" type="text" class="form-control" id="txtPrivilegiosUsuarioDetalles">
                                                                 </div>
+                                                                <!--Contraseña!-->
                                                                 <div class="form-group">
-                                                                    <label for="txtContrasennaUsuario">Contraseña:</label>
-                                                                    <input type="password" class="form-control" id="txtContrasennaUsuario" 
-                                                                           placeholder="Contraseña">
+                                                                    <label for="txtContrasennaUsuarioDetalles">Contraseña:</label>
+                                                                    <input readonly="" type="password" class="form-control" id="txtContrasennaUsuarioDetalles">
                                                                 </div>
                                                             </form>
                                                         </div>
+                                                        <!--Boton!-->
                                                         <div class="modal-footer">
-                                                            <button class="btn btn-info" id="btnAgregarUsuario" type="button" >Agregar</button>
+                                                            <center>
+                                                                <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+                                                            </center>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> 
-                                        </div>
+                                            </div>
 
-                                        <!--Este modelo se encarga de editar a los usuarios!-->
+                                            <!--Este modelo se encarga de enviar un mensaje de advertencia!-->
 
-                                        <div class="modal fade"  id="editarUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                                                        <h4 class="page-header">Editar usuarios</h4>
+                                            <div class="modal fade"  id="mensajeUsuarioResultado">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                                                            <!--Titulo!-->
+                                                            <center>
+                                                                <h4 class="modal-title">Advertencia</h4>
+                                                            </center>
+                                                        </div>
+                                                        <!--Mensaje!-->
                                                         <div class="modal-body">
-                                                            <form id="frmAgregarUsuario">
-                                                                <div class="form-group">
-                                                                    <label for="txtCedulaUsuarioEditar">Cédula:</label>
-                                                                    <input type="text" class="form-control" id="txtCedulaUsuarioEditar"
-                                                                           placeholder="Cédula">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtNombreUsuarioEditar">Nombre:</label>
-                                                                    <input type="text" class="form-control" id="txtNombreUsuarioEditar" 
-                                                                           placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtApellidosUsuarioEditar">Apellidos:</label>
-                                                                    <input type="text" class="form-control" id="txtApellidosUsuarioEditar" 
-                                                                           placeholder="Apellidos">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtEdadUsuarioEditar">Edad:</label>
-                                                                    <input type="text" class="form-control" id="txtEdadUsuarioEditar" 
-                                                                           placeholder="Edad">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="cmbPrivilegiosEditar">Privilegios:</label>
-                                                                    <select id="cmbPrivilegiosEditar" class="form-control selectpicker">
-                                                                        <option>Administrador</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtContrasennaUsuarioEditar">Contraseña:</label>
-                                                                    <input type="password" class="form-control" id="txtContrasennaUsuarioEditar" 
-                                                                           placeholder="Contraseña">
-                                                                </div>
-                                                            </form>
+                                                            <center>
+                                                                <p>No se han encontrado resultados.</p>
+                                                            </center>
                                                         </div>
+                                                        <!--Botón!-->
                                                         <div class="modal-footer">
-                                                            <button class="btn btn-info" id="btnEditarUsuario" type="button" >Aplicar cambios</button>
+                                                            <center>
+                                                                <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+                                                            </center>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -563,8 +830,10 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="acercade">
-                        <h1>Acerca de...</h1>
-                        <p>blue blue blue blue blue</p>
+                        <center>
+                            <h3 class="page-header">Lista de usuarios</h3>
+                        </center>
+                        <p>Ignacio Valerio Vega</p>
                     </div>
                 </div>
             </div>
