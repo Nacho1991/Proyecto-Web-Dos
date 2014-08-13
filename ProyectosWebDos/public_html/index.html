@@ -1,344 +1,76 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en-US">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Segundo Proyecto Web UTN</title>
-        <link href="CSS/Estilos.css" rel="stylesheet">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href="CSS/bootstrap.css" rel="stylesheet">
-        <link href="CSS/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="CSS/style.css">
-        <link href="css/main.css" rel="stylesheet">
-        <script type="text/javascript" src="JavaScript/jquery-1.8.3.min.js"></script>
-        <script type="text/javascript" src="JavaScript/bootstrap.js"></script>
-
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>Demo Modal Windows via Bootstrap</title>
+        <meta name="author" content="Jake Rocheleau">
+        <link rel="shortcut icon" href="http://vandelaydesign.com/favicon.ico">
+        <link rel="icon" href="http://vandelaydesign.com/favicon.ico">
+        <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" media="all" href="css/default.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/modals.js"></script>
+        <!--[if lt IE 9]>
+          <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
     </head>
-    <body class="">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"></a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-default navbar-left">
-                    <li>
-                        <div class="flip">
-                            <img  src="Imagenes/Logo.png" class="imagen flip-1" alt="Imagen responsive">
-                            <div class="flip-2"><img  src="Imagenes/Logo.png" class="imagen flip-1" alt="Imagen responsive"> </div>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="nav navbar-default navbar-right">
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Administrador <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Configuración</a></li>
-                            <li><a href="#">Perfil</a></li>
-                            <li class="divider"></li>
-                            <li><a href="Login.html" target="_self">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
 
-        </div>
-        <br/>
-        <div class="container">
-            <div id="content">
-                <ul id="tabs" class="nav nav-pills" data-tabs="tabs">
-                    <li class="active"><a href="#dashboard" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Menú principal">Dashboard</a></li>
-                    <li><a href="#carreras" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Gestiona la carreras registradas">Carreras</a></li>
-                    <li><a href="#estudiantes" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Gestiona los registros de los estudiantes">Estudiantes</a></li>
-                    <li><a href="#usuarios" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Gestiona los usuarios registrados">Usuarios</a></li>
-                    <li><a href="#acercade" data-toggle="tab" data-placement="top" class="tip-top" data-original-title="Brinda información acerca de la emnpresa">Acerca de..</a></li>
-                </ul>
-                <div id="my-tab-content" class="tab-content">
-                    <div class="tab-pane active" id="dashboard">
-                        <h3 class="page-header">Dashboard</h3>
-                        <div class="row flat center-block">
-                            <div class="col-lg-3 col-md-3 col-xs-4">
-                                <ul class="plan plan3">
-                                    <li class="plan-name">
-                                        Carreras
-                                    </li>
-                                    <li class="plan-price">
-                                        <a href="#carreras" class="btn btn-primary btn-lg"><strong>Agregar</strong></a>
-                                    </li>
-                                    <li>
-                                        <a href="#carreras" class="btn btn-danger btn-lg"><strong>Eliminar</strong></a>
-                                    </li>
-                                    <li>
-                                        <a href="#carreras" class="btn btn-success btn-lg"><strong>Ver lista</strong></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-xs-4">
-                                <ul class="plan plan1">
-                                    <li class="plan-name">
-                                        Estudiantes
-                                    </li>
-                                    <li class="plan-price">
-                                        <a href="#" class="btn btn-primary btn-lg"><strong>Agregar</strong></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="btn btn-danger btn-lg"><strong>Eliminar</strong></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="btn btn-success btn-lg"><strong>Ver lista</strong></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-xs-4">
-                                <ul class="plan plan1">
-                                    <li class="plan-name">
-                                        Usuarios
-                                    </li>
-                                    <li class="plan-price">
-                                        <a href="#" class="btn btn-primary btn-lg"><strong>Agregar</strong></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="btn btn-danger btn-lg"><strong>Eliminar</strong></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="btn btn-success btn-lg"><strong>Ver lista</strong></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="carreras"> 
-                        <div class="container"> 
-                            <div class="row"> 
-                                <div class="col-xs-12"> 
-                                    <h3 class="page-header">Lista de carreras</h3> 
-                                    <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevacarrera">Nuevo</button> 
-                                    <div class="modal fade"  id="nuevacarrera" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                    <h4>Agregar carrera</h4>
-                                                    <div class="modal-body">
-                                                        <form id="frmAgregarCarrera">
-                                                            <div class="form-group">
-                                                                <label for="txtCodCarrera">Código de la carrera:</label>
-                                                                <input type="text" class="form-control" id="txtCodCarrera"
-                                                                       placeholder="Codigo de la carrera">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="txtNombreCarrera">Nombre de la carrera:</label>
-                                                                <input type="text" class="form-control" id="txtNombreCarrera" 
-                                                                       placeholder="Nombre de la carrera">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="txtSede">Sede:</label>
-                                                                <input type="text" class="form-control" id="txtSede" 
-                                                                       placeholder="Nombre de la carrera">
-                                                            </div>
-                                                            <input type="submit" value="Agregar">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div> 
-                                </div> 
-                            </div> </div> 
-                        <br/>
-                        <div id="divLista" class="container"> 
-                            <div class="row"> 
-                                <div class="col-xs-10"> 
-                                    <div class="table-responsive"> 
-                                        <table id="tblTablaCarreras" class="table table table-hover table-bordered table-striped table-condensed"> 
-                                            <thead> 
-                                                <tr class="bg-success"> 
-                                                    <th>Código</th> 
-                                                    <th>Nombre</th> 
-                                                    <th>Sede</th> 
-                                                    <th>Opciones</th>
-                                                </tr>
-                                            </thead> 
-                                            <tbody>
-                                            </tbody>
-                                        </table> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </div>
-                    <div class="tab-pane" id="estudiantes">
-                        <div class="container"> 
-                            <div class="row">
-                                <div class="col-xs-8">
-                                    <h3 class="page-header">Lista de estudiantes</h3> 
-                                    <div class="btn-group">
-                                        <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevoEstudiante">Nuevo</button>
-                                        <div class="modal fade"  id="nuevoEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                        <h4>Agregar estudiante</h4>
-                                                        <div class="modal-body">
-                                                            <form id="frmAgregarEstudiante">
-                                                                <div class="form-group">
-                                                                    <label for="txtCedulaEstudiante">Cédula:</label>
-                                                                    <input type="text" class="form-control" id="txtCedulaEstudiante"
-                                                                           placeholder="Cédula">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtNombreEstudiante">Nombre:</label>
-                                                                    <input type="text" class="form-control" id="txtNombreEstudiante" 
-                                                                           placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtApellidosEstudiante">Apellidos:</label>
-                                                                    <input type="text" class="form-control" id="txtApellidosEstudiante" 
-                                                                           placeholder="Nombre del estudiante">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="txtCarreraEstudiante">Carrera:</label>
-                                                                    <input type="text" class="form-control" id="txtCarreraEstudiante" 
-                                                                           placeholder="Nombre de la carrera">
-                                                                </div>
-                                                                <div>
-                                                                    <fieldset class="scheduler-border">
-                                                                        <legend class="scheduler-border">Nivel de inglés</legend>
-                                                                        <div class="control-group">
-                                                                            <div class="checkbox-inline">
-                                                                                <input type="radio" name="radio" />
-                                                                                <label for="radio1">Nivel 1</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <input type="radio" name="radio" id="estilo1" />
-                                                                                <label for="radio2">Nivel 2</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <input type="radio" name="radio" id="estilo2" />
-                                                                                <label for="radio3">Nivel 3</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <input type="radio" name="radio" id="estilo3" />
-                                                                                <label for="radio4">Avanzado</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </fieldset>
-                                                                </div>
-                                                                <button id="btnAgregarEstudiante">Agregar</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>	
-                        </div>
-                        <br/>
-                        <div id="tablaEstudiantes" class="container">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <div class="table-responsive">
-                                        <table id="tblTablaEstudiantes" class="table table table-hover table-bordered table-striped table-condensed">
-                                            <thead >
-                                                <tr id="0" class="bg-success">
-                                                    <th>Cédula</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellidos</th>
-                                                    <th>Carrera</th>
-                                                    <th>Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="usuarios">
-                        <div class="container"> 
-                            <div class="row">
-                                <div class="col-xs-8">
-                                    <h3 class="page-header">Lista de usuarios</h3> 
-                                    <button class="btn-success btn-sm" data-toggle="modal" data-target="#nuevousuario">Nuevo</button> 
-                                    <div class="modal fade"  id="nuevousuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                                    <h4 class="page-header">Agregar usuarios</h4>
-                                                    <div class="modal-body">
-                                                        <form id="frmAgregarUsuario">
-                                                            <div class="form-group">
-                                                                <label for="txtCedulaUsuario">Cédula:</label>
-                                                                <input type="text" class="form-control" id="txtCedulaUsuario"
-                                                                       placeholder="Cédula">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="txtNombreUsuario">Nombre:</label>
-                                                                <input type="text" class="form-control" id="txtNombreUsuario" 
-                                                                       placeholder="Nombre">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="txtApellidosUsuario">Apellidos:</label>
-                                                                <input type="text" class="form-control" id="txtApellidosUsuario" 
-                                                                       placeholder="Apellidos">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="txtEdadUsuario">Edad</label>
-                                                                <input type="text" class="form-control" id="txtEdadUsuario" 
-                                                                       placeholder="Edad">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="txtPrivilegiosUsuario">Privilegios</label>
-                                                                <input type="text" class="form-control" id="txtPrivilegiosUsuario" 
-                                                                       placeholder="Privilegios">
-                                                            </div>
-                                                            <input type="submit" value="Agregar">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>	
-                        </div>
-                        <br/>
-                        <div id="tablaUsuarios" class="container">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <div class="table-responsive">
-                                        <table id="tblTablaUsuarios" class="table table table-hover table-bordered table-striped table-condensed">
-                                            <thead >
-                                                <tr class="bg-success">
-                                                    <th>Cédula</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellidos</th>
-                                                    <th>Edad</th>
-                                                    <th>Privilegios</th>
-                                                    <th>Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="acercade">
-                        <h1>Acerca de...</h1>
-                        <p>blue blue blue blue blue</p>
-                    </div>
+    <body>
+        <div id="w" class="container center">
+            <h2 class="text-center">Bootstrap Modal Windows</h2>
+            <p>We can quickly append functionality for modal windows in HTML. This demo will load windows from div elements found in the page markup.</p>
+            <p>The first button is a generic window, and the 2nd allows us to reset the body background color.</p>
+            <hr>
+            <p class="text-right">A <strong>very special thanks</strong> out to <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> for this sweet framework, and to <a href="http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-easy-css3-checkboxes-and-radio-buttons/">Net Tuts+</a> for the awesome radio buttons.</p>
+            <br><br>
+            <center>   
+                <a href="#modalwin" data-toggle="modal" class="btn btn-large">Display Window</a>
+                <a href="#bgchangemodal" data-toggle="modal" class="btn btn-large">Update the Background</a>
+            </center>
+            <!-- first modal window -->
+            <div id="modalwin" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <header class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">x</a>
+                    <h3>Prepare to be Amazed <small>or easily amused :]</small></h3>
+                </header>
+                <div class="modal-body">
+                    <p><small>This is a generic modal window, but look we can add images!</small></p>
+                    <p><img src="images/jim-dwight-the-office.png" alt="Jim and Dwight from NBC's The Office" title="Jim and Dwight" class="img-rounded"></p>
+                    <p>Close me by clicking anywhere outside the window, or by clicking the blue button.</p>
+                    <p></p>
                 </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('#tabs').tab();
-            });
-        </script> 
+                <footer class="modal-footer">
+                    <a href="#" class="btn btn-primary" id="okwin01">Sounds Good!</a>
+                </footer>
+            </div> <!-- @end @modalwin -->
+            <!-- BG color modal window -->
+            <div id="bgchangemodal" class="modal hide fade dark" role="dialog" aria-labelledby="bgModalUpdate" aria-hidden="true">
+                <header class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">x</a>
+                    <h3>Update the Background <small>just pick a color below</small></h3>
+                </header>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <a href="#" class="close" data-dismiss="alert">x</a>
+                        Select a radio button and save changes to see the difference.
+                    </div>
+                    <input type="radio" id="bgdefault" name="bgradio" checked="checked">
+                    <label for="bgdefault"><span></span>Default Color</label>
+                    <input type="radio" id="bgpalegreen" name="bgradio">
+                    <label for="bgpalegreen"><span></span>Pale Green</label>
+                    <input type="radio" id="bgwisteria" name="bgradio">
+                    <label for="bgwisteria"><span></span>Wisteria</label>
+                    <input type="radio" id="bgsaffron" name="bgradio">
+                    <label for="bgsaffron"><span></span>Saffron</label>
+                    <input type="radio" id="bgcarnation" name="bgradio">
+                    <label for="bgcarnation"><span></span>Carnation Pink</label>
+                </div>
+                <footer class="modal-footer">
+                    <a href="#" class="btn" id="closewin02">Cancel</a>
+                    <a href="#" class="btn btn-primary" id="okwin02">Save Changes</a>
+                </footer> 
+            </div> <!-- @end #bgchangemodal -->
+        </div><!-- @end #w -->
     </body>
 </html>

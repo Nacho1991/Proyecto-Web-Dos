@@ -1,5 +1,8 @@
+//Varable global del objeto de las carreras
 var objetoDatosCarrera;
+//Variable global del objeto de los estudiantes
 var objetoDatosEstudiante;
+//Varavle global del objeto de usuarios
 var objetoDatosUsuario;
 
 //Funcion encargada de ubicar los tooltip en diferentes posiciones
@@ -22,7 +25,9 @@ $(function()
 $(function() {
     //verificamos si el navegador soporta localStorage
     if (!localStorage) {
+        //Se crea una funcion para retornar la compatibilidad
         setTimeout(function() {
+            //Se envia una alerta informando de la incompatibilidad.
             alert('Lo sentimos, su navegador no soporta localStorage.' +
                     'No se podrá utilizar la página :(');
         });
@@ -246,16 +251,16 @@ $(function() {
 $(function() {
 
     $.mostrarListaDeEstudiante = function() {
-        //tabla en la que mostraremos la lista (agregando filas con jQuery)
+        //tabla en la que mostraremos la lista de los estudiantes
         var $objCuerpoTablaEstudiantes = $('#tblTablaEstudiantes').find('tbody');
-        //vaciamos el cuerpo de la tabla
+        //Limpiamos el cuerpo de la tabla
         $objCuerpoTablaEstudiantes.empty();
-        //hay carreras almacenados?
+        //Creamos un vector para almacenar los datos de los estudiantes
         var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
         //Se valida si el objeto se encuentra vacio
         if (vectorEstudiantes === null || vectorEstudiantes.length === 0)
         {
-            //agregamos una fila con un mensaje indicando que no hay carreras
+            //agregamos una fila con un mensaje indicando que no hay estudiantes
             $objCuerpoTablaEstudiantes.append(
                     $('<tr>').append(
                     $('<td>', {
@@ -266,35 +271,38 @@ $(function() {
                     )
                     );
         }
+        //En caso contrario validamos si el vector tiene registros
         else if (vectorEstudiantes.length > 0) {
-            //recorremos la lista de carreras (los items almacenados en localStorage)
+            //recorremos la lista de estudiantes (los items almacenados en localStorage)
             for (var pos = 0; pos < vectorEstudiantes.length; pos++) {
-                //guardamos en variables el código,nombre y sede de la carrera del localStorage
-                //agregamos una nueva fila con los datos de la carrera
+                //Preguntamos si el vector tiene datos nulos
                 if (vectorEstudiantes[pos] === null)
                 {
 
-                } else {
+                } 
+                //En caso contrario cargamos la tabla con los datos econtrados
+                else {
+                    //Se carga el cuerpo de la tabla
                     $objCuerpoTablaEstudiantes.append(
                             $('<tr>').append(
-                            $('<td>', {//fila con el codigo
+                            $('<td>', {//Columna de la cédula
                                 text: vectorEstudiantes[pos].cedulaEstudiante,
                                 align: 'left'
 
                             }),
-                            $('<td>', {//fila con la carrera
+                            $('<td>', {//Columna del nombre
                                 text: vectorEstudiantes[pos].nombreEstudiante,
                                 align: 'left'
                             }),
-                            $('<td>', {//fila con la sede
+                            $('<td>', {//Columna de los apellidos
                                 text: vectorEstudiantes[pos].apellidosEstudiante,
                                 align: 'left'
                             }),
-                            $('<td>', {//fila con la sede
+                            $('<td>', {//Columna de la carrera del estudiante
                                 text: vectorEstudiantes[pos].carreraEstudiante,
                                 align: 'left'
                             }),
-                            $('<td>', {//fila con la sede
+                            $('<td>', {//Columna del nivel de ingles del estudiante
                                 text: vectorEstudiantes[pos].nivelIngles,
                                 align: 'left'
                             })
@@ -312,7 +320,7 @@ $(function() {
         $('#txtApellidosEstudiante').val('');
     };
 
-    //evento submit del formulario
+    //Creamos un evento de click para registrar el estudiante
     $("#btnAgregarEstudiante").bind("click", function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
         eEvento.preventDefault();
@@ -320,16 +328,16 @@ $(function() {
         var $txtCedulaEstudiante = $('#txtCedulaEstudiante');
         var $txtNombreEstudiante = $('#txtNombreEstudiante');
         var $txtApellidosEstudiante = $('#txtApellidosEstudiante');
-        debugger;
-        //verificamos que los datos no esten vacios
-        //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
+        //Validamos si los campos vienen vacios
         if ($.trim($txtCedulaEstudiante.val()) !== '' && $.trim($txtNombreEstudiante.val()) !== '' && $.trim($txtApellidosEstudiante.val()) !== '') {
-            //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
+            //Creamos las variables necesarias para almacenar los registros y
+            // utilizamos $.trim() para eliminar los espacios al final y al inicio de los campos de texto
             var strCedulaEstudiante = $.trim($txtCedulaEstudiante.val());
             var strNombreEstudiante = $.trim($txtNombreEstudiante.val());
             var strApellidosEstudiante = $.trim($txtApellidosEstudiante.val());
             var strCarreraEstudiante = document.getElementById('cmbCarreraEstudiante').value;
             var strNivelIngles = document.getElementById('cmbNivelIngles').value;
+            //Cargamos el objeto global con los datos provenientes del formulario
             objetoDatosEstudiante = {
                 cedulaEstudiante: strCedulaEstudiante,
                 nombreEstudiante: strNombreEstudiante,
@@ -337,26 +345,32 @@ $(function() {
                 carreraEstudiante: strCarreraEstudiante,
                 nivelIngles: strNivelIngles
             };
+            //Cargamos el vector con los registros de los estudiantes
             var vectorEstudiantes = JSON.parse(localStorage.getItem('Estudiante'));
+            //Validamos si el vector viene nulo
             if (vectorEstudiantes === null) {
+                //Lo creamos ya como un vector
                 vectorEstudiantes = [];
             }
+            //Creamos un Push del objeto de estudiantes, este objeto se lo enviamos por parametro
             vectorEstudiantes.push(objetoDatosEstudiante);
             vectorEstudiantes.sort();
+            //Le enviamos al LocalStorage el vector actualizado con los nuevos datos
             localStorage.setItem('Estudiante', JSON.stringify(vectorEstudiantes));
-            //cargamos en el cuerpo de la tabla la lista de contactos
+            //cargamos la tabla con los datos actualizados
             $.mostrarListaDeEstudiante();
             //limpiamos el formulario
             $.limpiarCamposDelFormularioEstudiante();
         } else {
-            //en caso de que algun campo este vacio
+            //En caso de que algun campo este vacio
             alert('Faltan datos importantes, por favor corrija para continuar.');
-            //enfocamos el campo para el código
+            //Enfocamos el campo para el código
             $txtCedulaEstudiante.val('');
             $txtNombreEstudiante.val('');
             $txtApellidosEstudiante.val('');
         }
     });
+    //Creamos un evento de click para eliminar el estudiante
     $("#btnEliminarEstudiante").bind("click", function() {
 
         //Creamos un vector para que contenga los datos de los estudiantes
@@ -365,20 +379,19 @@ $(function() {
         var $txtCedulaEstudiante = $('#txtEliminarEstudiante');
         //Creamos una variable y automaticamente le asignamos el valor de la variable anterior
         var strTxtCedulaEstudiante = $.trim($txtCedulaEstudiante.val());
-        //Creamos un ciclo para recorrer el vector
-        debugger;
+        //Validamos si el campo se encuentra vacio
         if (strTxtCedulaEstudiante !== "") {
+            //Preguntamos si el vector cargado anteriormente esta vacio o tiene mas de un dato
             if (vectorEstudianteEliminar !== null && vectorEstudianteEliminar.length > 0) {
+                //Creamos un ciclo para recorrer el vector cargado con los datos del LocalStorage
                 for (var pos = 0; pos < vectorEstudianteEliminar.length; pos++)
                 {
-                    debugger;
                     //Validamos si en alguna posicion del vector es igual al valor que contiene el TextBox
                     if (vectorEstudianteEliminar[pos].cedulaEstudiante === strTxtCedulaEstudiante)
                     {
                         //Borramos el contenido del vector en caso de haberse encontrado
                         delete vectorEstudianteEliminar[pos];
-                        //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
-                        //nonde se le envia por parametro una funcion
+                        //Actualizamos el vector igualandola a lo que retorne la funcion.
                         vectorEstudianteEliminar = vectorEstudianteEliminar.filter(function(n) {
                             //Validamos y retornamos el valor
                             return n !== undefined;
@@ -393,16 +406,22 @@ $(function() {
                         break;
                     }
                 }
-            } else
+            }
+            //En caso de encontrarse vacio
+            else
             {
+                //Se le envia un mensaje al usuario avisandole la inexistencia de los registros
                 alert('No existen registros en la base de datos');
             }
         }
+        //En caso de haber campos vacios
         else
         {
+            //Se le envia un mensaje informandole de que hay campos vacios
             alert('Por favor ingrese el número de cedula a eliminar');
         }
     });
+    //Creamos un evento de click para editar al estudiante
     $("#btnEditarEstudiante").bind("click", function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
         eEvento.preventDefault();
@@ -410,9 +429,7 @@ $(function() {
         var $txtCedulaEstudiante = $('#txtCedulaEstudianteEditar');
         var $txtNombreEstudiante = $('#txtNombreEstudianteEditar');
         var $txtApellidoEstudiante = $('#txtApellidosEstudianteEditar');
-
-        //Utilizamos Trim para eliminar los espacios en blanco del inicio y el final del TextBox
-        //Tambien verificamos si los datos provenientes estan vacios
+        //Validamos si los campos vienen vacios
         if ($.trim($txtCedulaEstudiante.val()) !== '' && $.trim($txtNombreEstudiante.val()) !== '' && $.trim($txtApellidoEstudiante.val()) !== '') {
             //Creamos variables para almacenar los datos provenientes de los TextBox
             var strCedulaEstudiante = $.trim($txtCedulaEstudiante.val());
@@ -425,11 +442,10 @@ $(function() {
             var modificado = 0;
             //Verificamos si el vector tiene datos
             if (vectorEstudianteEditar !== null) {
-                debugger;
-                //Recorremos el vector con los datos recogidos
+                //Recorremos el vector con los datos cargados del LocalStorage
                 for (var pos = 0; pos < vectorEstudianteEditar.length; pos++)
                 {
-                    //Validamos si el codigo de la carrera coincide con la del campo del vector
+                    //Validamos si la cédula coincide con la del campo del vector
                     if (vectorEstudianteEditar[pos].cedulaEstudiante === strCedulaEstudiante)
                     {
                         //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
@@ -476,6 +492,7 @@ $(function() {
             alert('Faltan datos importantes, por favor corrija para continuar.');
         }
     });
+    //Envocamos al metodo para cuando cargue la pagina, tambien cargue la tabla con los datos del estudiante
     $.mostrarListaDeEstudiante();
 });
 
@@ -485,17 +502,18 @@ $(function() {
 ////////////////////////////////////////////////
 ///////////////////////////////////////////////
 $(function() {
+    //Creamos una funcion encargada de mostrar la lista de los estudiantes
     $.mostrarListaDeUsuarios = function() {
-        //tabla en la que mostraremos la lista (agregando filas con jQuery)
+        //Creamos un objeto de la tabla
         var $objCuerpoTablaUsuarios = $('#tblTablaUsuarios').find('tbody');
         //vaciamos el cuerpo de la tabla
         $objCuerpoTablaUsuarios.empty();
-        //hay carreras almacenados?
+        //Creamos un vector que se va a encargar de almcenar todos los registros
         var vectorUsuarios = JSON.parse(localStorage.getItem('Usuario'));
         //Se valida si el objeto se encuentra vacio
         if (vectorUsuarios === null)
         {
-            //agregamos una fila con un mensaje indicando que no hay carreras
+            //agregamos una fila con un mensaje indicando que no hay usuarios
             $objCuerpoTablaUsuarios.append(
                     $('<tr>').append(
                     $('<td>', {
@@ -506,31 +524,31 @@ $(function() {
                     )
                     );
         }
+        //En caso contrario,validamos si el vector tiene mas de un registro
         else if (vectorUsuarios.length > 0) {
-            //recorremos la lista de carreras (los items almacenados en localStorage)
+            //Recorremos la lista de los usuarios (los items almacenados en localStorage)
             for (var pos = 0; pos < vectorUsuarios.length; pos++) {
-                //guardamos en variables el código,nombre y sede de la carrera del localStorage
-                //agregamos una nueva fila con los datos de la carrera
+                //Cargamos el cuerpo de la tabla
                 $objCuerpoTablaUsuarios.append(
                         $('<tr>').append(
-                        $('<td>', {//fila con el codigo
+                        $('<td>', {//Columna de la cedula del usuario
                             text: vectorUsuarios[pos].cedulaUsuario,
                             align: 'left'
 
                         }),
-                        $('<td>', {//fila con la carrera
+                        $('<td>', {//Columna del nombre de usuario
                             text: vectorUsuarios[pos].nombreUsuario,
                             align: 'left'
                         }),
-                        $('<td>', {//fila con la sede
+                        $('<td>', {//Columna del apellido de usuario
                             text: vectorUsuarios[pos].apellidosUsuario,
                             align: 'left'
                         }),
-                        $('<td>', {//fila con la sede
+                        $('<td>', {//Columna de la edad del usuario
                             text: vectorUsuarios[pos].edadUsuario,
                             align: 'left'
                         }),
-                        $('<td>', {//fila con la sede
+                        $('<td>', {//Columna de los privilegios del usuario
                             text: vectorUsuarios[pos].privilegiosUsuario,
                             align: 'left'
                         })
@@ -548,7 +566,7 @@ $(function() {
         $('#txtEdadUsuario').val('');
     };
 
-    //evento submit del formulario
+    //Creamos un evento click para agregar al usuario
     $("#btnAgregarUsuario").bind("click", function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
         eEvento.preventDefault();
@@ -557,18 +575,18 @@ $(function() {
         var $txtNombreUsuario = $('#txtNombreUsuario');
         var $txtApellidosUsuario = $('#txtApellidosUsuario');
         var $txtEdadUsuario = $('#txtEdadUsuario');
-        debugger;
         var $txtContrasennauUsuario = $('#txtContrasennaUsuario');
-        //verificamos que los datos no esten vacios
-        //con $.trim() eliminamos los espacios al final y al inicio de las cadenas
+        //Validamos si algunos de los campos de texto vienen vacios
         if ($.trim($txtCedulaUsuario.val()) !== '' && $.trim($txtNombreUsuario.val()) !== '' && $.trim($txtApellidosUsuario.val()) !== '' && $.trim($txtEdadUsuario.val() !== '') && $.trim($txtContrasennauUsuario.val() !== '')) {
-            //creamos dos variables con el codigo, nombre y sede de las carreras que vamos a guardar
+            //creamos las variables necesarios para guardar los datos
+            //y utilizamos Trim() para eliminar los campos vacios del inicio y al final
             var strCedulaUsuario = $.trim($txtCedulaUsuario.val());
             var strNombreUsuario = $.trim($txtNombreUsuario.val());
             var strApellidosUsuario = $.trim($txtApellidosUsuario.val());
             var strEdadUsuario = $.trim($txtEdadUsuario.val());
             var strPrivilegiosUsuario = document.getElementById('cmbPrivilegios').value;
             var strContrasennaUsuario = $.trim($txtContrasennauUsuario.val());
+            //Cargamos el objeto con los datos provenientes de los campos de texto
             objetoDatosUsuario = {
                 cedulaUsuario: strCedulaUsuario,
                 nombreUsuario: strNombreUsuario,
@@ -577,27 +595,33 @@ $(function() {
                 privilegiosUsuario: strPrivilegiosUsuario,
                 contrasennaUsuario: strContrasennaUsuario
             };
+            //Creamos y cargamos un vector con los datos de todos los usuarios
             var vectorUsuarios = JSON.parse(localStorage.getItem('Usuario'));
+            //Validamos si no tiene registros
             if (vectorUsuarios === null) {
+                //Convertimos la variable en vector
                 vectorUsuarios = [];
             }
+            //Creamos un Push para enviar al vector creado todos agregados al objeto
             vectorUsuarios.push(objetoDatosUsuario);
+            //Y por ultimo le enviamos todos los registros al LocalStorage
             localStorage.setItem('Usuario', JSON.stringify(vectorUsuarios));
-            //cargamos en el cuerpo de la tabla la lista de contactos
+            //cargamos en el cuerpo de la tabla la lista de usuarios
             $.mostrarListaDeUsuarios();
             //limpiamos el formulario
             $.limpiarCamposDelFormularioUsuario();
         } else {
-            //en caso de que algun campo este vacio
+            //en caso de que algun campo este vacio le enviamos una alerta
             alert('Faltan datos importantes, por favor corrija para continuar.');
-            //enfocamos el campo para el código
-            $txtCedulaUsuario.val('');
+           //Limpiamos los campos de Texto del formulario y enfocamos
+            $txtCedulaUsuario.val('').focus();
             $txtNombreUsuario.val('');
             $txtApellidosUsuario.val('');
             $txtEdadUsuario.val('');
             $txtContrasennauUsuario.val('');
         }
     });
+    //Creamos un evento para el boton de editar
     $("#btnEditarUsuario").bind("click", function(eEvento) {
         //evitamos que el form se envie (para que no recargue la pagina)
         eEvento.preventDefault();
@@ -607,9 +631,7 @@ $(function() {
         var $txtApellidosUsuario = $('#txtApellidosUsuarioEditar');
         var $txtEdadUsuario = $('#txtEdadUsuarioEditar');
         var $txtContrasennaUsuario = $('#txtContrasennaUsuarioEditar');
-
-        //Utilizamos Trim para eliminar los espacios en blanco del inicio y el final del TextBox
-        //Tambien verificamos si los datos provenientes estan vacios
+        //Validamos si algun campo de texto viene vacio
         if ($.trim($txtCedulaUsuario.val()) !== '' && $.trim($txtNombreUsuario.val()) !== '' && $.trim($txtApellidosUsuario.val()) !== '' && $.trim($txtEdadUsuario.val()) !== '' && $.trim($txtContrasennaUsuario.val()) !== '') {
             //Creamos variables para almacenar los datos provenientes de los TextBox
             var strCedulaUsuario = $.trim($txtCedulaUsuario.val());
@@ -618,17 +640,16 @@ $(function() {
             var strEdadUsuario = $.trim($txtEdadUsuario.val());
             var strPrivilegiosUsuario = document.getElementById('cmbPrivilegiosEditar').value;
             var strContrasennaUsuario = $.trim($txtContrasennaUsuario.val());
-
+            //Creamos un vector para almacenar todos los datos en el LocalStorage
             var vectorUsuarioEditar = JSON.parse(localStorage.getItem('Usuario'));
             //Creamos una variable inicializada en cero para darnos cuenta de si modifico o no
             var modificado = 0;
             //Verificamos si el vector tiene datos
             if (vectorUsuarioEditar !== null) {
-                debugger;
                 //Recorremos el vector con los datos recogidos
                 for (var pos = 0; pos < vectorUsuarioEditar.length; pos++)
                 {
-                    //Validamos si el codigo de la carrera coincide con la del campo del vector
+                    //Validamos si la cedula del usuario coincide con la del campo del vector
                     if (vectorUsuarioEditar[pos].cedulaUsuario === strCedulaUsuario)
                     {
                         //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
@@ -662,7 +683,9 @@ $(function() {
                     //Enviamos una alerta informando de que no se encontro ningun codigo
                     alert('No se ha encontrado ningún registro asociado al siguiente número de cédula: ' + strCedulaUsuario);
                 }
-            } else
+            }
+            //En caso de no haber registros en la base de datos
+            else
             {
                 //Enviamos una alerta informando de que no hay registros en la base de datos
                 alert('No hay registros en la base de datos');
@@ -676,28 +699,29 @@ $(function() {
             alert('Faltan datos importantes, por favor corrija para continuar.');
         }
     });
+    //Creamos un evento de click para el boton de eliminar
     $("#btnEliminarUsuario").bind("click", function() {
 
-        //Creamos un vector para que contenga los datos de los estudiantes
+        //Creamos un vector para que contenga los datos de los usuarios
         var vectorUsuarioEliminar = JSON.parse(localStorage.getItem('Usuario'));
         //Creamos un objeto que va a contener el dato del TextBox
         var $txtCedulaUsuario = $('#txtEliminarUsuario');
         //Creamos una variable y automaticamente le asignamos el valor de la variable anterior
         var strTxtCedulaUsuario = $.trim($txtCedulaUsuario.val());
-        //Creamos un ciclo para recorrer el vector
-        debugger;
+        //Validamos si el campo viene vacio
         if (strTxtCedulaUsuario !== "") {
+            //Validamos si el vector recogio datos o tiene registros
             if (vectorUsuarioEliminar !== null && vectorUsuarioEliminar.length > 0) {
+                //Recorremos el vector cargado de los datos almacenados
                 for (var pos = 0; pos < vectorUsuarioEliminar.length; pos++)
                 {
-                    debugger;
                     //Validamos si en alguna posicion del vector es igual al valor que contiene el TextBox
                     if (vectorUsuarioEliminar[pos].cedulaUsuario === strTxtCedulaUsuario)
                     {
                         //Borramos el contenido del vector en caso de haberse encontrado
                         delete vectorUsuarioEliminar[pos];
                         //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
-                        //nonde se le envia por parametro una funcion
+                        //donde se le envia por parametro una funcion
                         vectorUsuarioEliminar = vectorUsuarioEliminar.filter(function(n) {
                             //Validamos y retornamos el valor
                             return n !== undefined;
@@ -712,17 +736,22 @@ $(function() {
                         break;
                     }
                 }
-            } else
+            } 
+            //En caso de no haber registros en el LocalStorage
+            else
             {
+                //Enviamos una alerta al usuario
                 alert('No existen registros en la base de datos');
             }
         }
+        //En caso de estar vacio el campo de texto
         else
         {
+            //Enviamos una alerta
             alert('Por favor ingrese el número de cedula a eliminar');
         }
     });
-    //cuando la pagina carga mostramos la lista de carreras.
+    //cuando la pagina carga mostramos la lista de los usuarios.
     $.mostrarListaDeUsuarios();
 });
 
