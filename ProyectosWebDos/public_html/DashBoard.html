@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="CSS/bootstrap.css" rel="stylesheet">
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
-        
         <link rel="stylesheet" href="CSS/style.css">
         <link href="css/main.css" rel="stylesheet">
         <script type="text/javascript" src="JavaScript/jquery-1.8.3.min.js"></script>
@@ -216,11 +215,11 @@
                                                         <form id="frmEditarCarrera">
                                                             <div class="form-group">
                                                                 <label for="txtCodCarreraEditar">Código de la carrera:</label>
-                                                                <input readonly="" type="text" class="form-control" id="txtCodCarreraEditar">
+                                                                <input readonly="" type="text" class="form-control" id="txtCodCarreraEditar" placeholder="Código de carrera">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="txtNombreCarreraEditar">Nombre de la carrera:</label>
-                                                                <input type="text" class="form-control" id="txtNombreCarreraEditar">
+                                                                <input type="text" class="form-control" id="txtNombreCarreraEditar" placeholder="Nombre">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="cmbSedeEditar">Sede:</label>
@@ -401,15 +400,15 @@
                                                                 <form id="frmEditarEstudiante">
                                                                     <div class="form-group">
                                                                         <label for="txtCedulaEstudianteEditar">Cédula:</label>
-                                                                        <input readonly="" type="text" class="form-control" id="txtCedulaEstudianteEditar">
+                                                                        <input readonly="" type="text" class="form-control" id="txtCedulaEstudianteEditar" placeholder="Cédula">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="txtNombreEstudianteEditar">Nombre:</label>
-                                                                        <input type="text" class="form-control" id="txtNombreEstudianteEditar">
+                                                                        <input type="text" class="form-control" id="txtNombreEstudianteEditar" placeholder="Nombre">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="txtApellidosEstudianteEditar">Apellidos:</label>
-                                                                        <input type="text" class="form-control" id="txtApellidosEstudianteEditar">
+                                                                        <input type="text" class="form-control" id="txtApellidosEstudianteEditar" placeholder="Apellidos">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="cmbCarreraEstudianteEditar">Carrera:</label>
@@ -561,21 +560,12 @@
                                     <div class="col-xs-6">
                                         <div class="input-group">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#nuevousuario">Nuevo</button> 
-                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editarUsuario">Editar</button> 
-                                            </span>
-                                            <input id="txtEliminarUsuario" type="text" class="form-control" placeholder="Cédula a eliminar">
-                                            <span class="input-group-btn">
-                                                <button id="btnEliminarUsuario" type="button" class="btn btn-danger btn-sm">Eliminar</button>
-                                            </span>
-                                            <input id="txtVerDetallesUsuario" type="text" class="form-control" placeholder="Cédula a detallar">
-                                            <span class="input-group-btn">
-                                                <button id="btnVerDetallesUsuario" type="button" class="btn btn-success btn-sm">Ver detalles</button>
+                                                <button class="btn btn-primary btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#nuevousuario">Nuevo</button> 
                                             </span>
 
                                             <!--Este modelo se encarga de registrar los usuarios!-->
 
-                                            <div class="modal fade"  id="nuevousuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal fade"  id="nuevousuario">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -623,6 +613,11 @@
                                                                         <input type="password" class="form-control" id="txtContrasennaUsuario" 
                                                                                placeholder="Contraseña">
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtVerificaContrasennaUsuario">Verificar contraseña:</label>
+                                                                        <input type="password" class="form-control" id="txtVerificaContrasennaUsuario" 
+                                                                               placeholder="Verificar contraseña">
+                                                                    </div>
                                                                 </form>
                                                             </div>
                                                             <!--Botón!-->
@@ -639,7 +634,7 @@
 
                                             <!--Este modelo se encarga de editar a los usuarios!-->
 
-                                            <div class="modal fade"  id="editarUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal fade"  id="editarUsuario">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -652,8 +647,7 @@
                                                                     <!--Cedula!-->
                                                                     <div class="form-group">
                                                                         <label for="txtCedulaUsuarioEditar">Cédula:</label>
-                                                                        <input type="text" class="form-control" id="txtCedulaUsuarioEditar"
-                                                                               placeholder="Cédula">
+                                                                        <input readonly="" type="text" class="form-control" id="txtCedulaUsuarioEditar">
                                                                     </div>
                                                                     <!--Nombre!-->
                                                                     <div class="form-group">
@@ -686,6 +680,11 @@
                                                                         <label for="txtContrasennaUsuarioEditar">Contraseña:</label>
                                                                         <input type="password" class="form-control" id="txtContrasennaUsuarioEditar" 
                                                                                placeholder="Contraseña">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtVerificaContrasennaUsuarioEditar">Verificar contraseña:</label>
+                                                                        <input type="password" class="form-control" id="txtVerificaContrasennaUsuarioEditar" 
+                                                                               placeholder="Verificar contraseña">
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -791,7 +790,7 @@
                         <br/>
                         <div id="tablaUsuarios" class="container">
                             <div class="row">
-                                <div class="col-xs-10">
+                                <div class="col-xs-12">
                                     <div class="table-responsive">
                                         <table id="tblTablaUsuarios" class="table table table-hover table-bordered table-striped table-condensed">
                                             <thead >
@@ -801,6 +800,7 @@
                                                     <th>Apellidos</th>
                                                     <th>Edad</th>
                                                     <th>Privilegios</th>
+                                                    <th>Opciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
