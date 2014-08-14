@@ -29,7 +29,7 @@
                 <em>Universidad Técnica Nacional</em>
                 <br>
                 <br>
-                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalSesion">Iniciar sesión / Registrase</button>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalSesion">Iniciar sesión</button>
             </center>
             <br>
             <hr class="prettyline">
@@ -43,8 +43,9 @@
                     <br>
                     <div class="bs-example bs-example-tabs">
                         <ul id="myTab" class="nav nav-tabs">
-                            <li class="active"><a href="#iniciarSesion" data-toggle="tab">Iniciar sesión</a></li>
-                            <li class=""><a href="#registrase" data-toggle="tab">Registrase</a></li>
+                            <center>
+                                <li class="active"><a href="#iniciarSesion" data-toggle="tab">Iniciar sesión</a></li>
+                            </center>
                         </ul>
                     </div>
 
@@ -93,78 +94,6 @@
                                             <div class="controls">
                                                 <center>
                                                     <button id="btnIniciarSesion" type="button" class="btn btn-success">Iniciar sesión</button>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-
-                            <!--Tab para registrarse!-->
-
-                            <div class="tab-pane fade" id="registrase">
-                                <form class="form-horizontal">
-                                    <fieldset>
-
-                                        <!--Cedula del nuevo usuario!-->
-
-                                        <div class="control-group">
-                                            <label class="control-label" for="txtCedulaNuevoRegistro">Cédula:</label>
-                                            <div class="controls">
-                                                <input id="txtCedulaNuevoRegistro" name="txtCedulaNuevoRegistro" class="form-control" type="text" placeholder="Cédula"  required="">
-                                            </div>
-                                        </div>
-
-                                        <!--Nombre del nuevo usuario!-->
-
-                                        <div class="control-group">
-                                            <label class="control-label" for="txtNombreNuevoRegsitro">Nombre:</label>
-                                            <div class="controls">
-                                                <input id="txtNombreNuevoRegsitro" name="txtNombreNuevoRegsitro" class="form-control" type="text" placeholder="Nombre" required="">
-                                            </div>
-                                        </div>
-
-                                        <!--Apellidos del nuevo usuario!-->
-
-                                        <div class="control-group">
-                                            <label class="control-label" for="txtApellidosNuevoRegistro">Apellidos:</label>
-                                            <div class="controls">
-                                                <input id="txtApellidosNuevoRegistro" name="txtApellidosNuevoRegistro" class="form-control" type="text" placeholder="Apellidos" required="">
-                                            </div>
-                                        </div>
-
-                                        <!--Edad del nuevo usuario!-->
-
-                                        <div class="control-group">
-                                            <label class="control-label" for="txtEdadNuevoRegistro">Edad:</label>
-                                            <div class="controls">
-                                                <input id="txtEdadNuevoRegistro" class="form-control" name="txtEdadNuevoRegistro" type="password" placeholder="Edad" required="">
-                                            </div>
-                                        </div>
-
-                                        <!--Contraseña del nuevo usuario!-->
-
-                                        <div class="control-group">
-                                            <label class="control-label" for="txtContrasennaNuevoRegistro">Contraseña:</label>
-                                            <div class="controls">
-                                                <input id="txtContrasennaNuevoRegistro" class="form-control" name="txtContrasennaNuevoRegistro" type="password" placeholder="Contraseña" required="">
-                                            </div>
-                                        </div>
-                                        <!--Privilegios del nuevo usuario!-->
-                                        <br>
-                                        <div class="control-group">
-                                            <label for="cmbPrivilegiosNuevoRegistro">Pribilegios:</label>
-                                            <select id="cmbPrivilegiosNuevoRegistro" class="form-control selectpicker">
-                                                <option>Administrador</option>
-                                                <option>Director de carrera</option>
-                                            </select>
-                                        </div>
-                                        <!--Botón!-->
-                                        <div class="control-group">
-                                            <label class="control-label" for="btnRegistraseLogin"></label>
-                                            <div class="controls">
-                                                <center>
-                                                    <button type="button" id="btnRegistraseLogin" class="btn btn-success">Registrase e iniciar</button>
                                                 </center>
                                             </div>
                                         </div>

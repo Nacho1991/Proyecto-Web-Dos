@@ -26,6 +26,7 @@ $(function() {
     //Creamos una funcion de click para el inicio de sesión
     $("#btnIniciarSesion").bind("click", function()
     {
+        $(this).data("codigo");
         //Creamos las variables necesarias para recoger los datos del formulario
         var $txtCedulaLogin = $('#txtCedulaLogin');
         var $txtContrasenna = $('#txtContrasennaLogin');
@@ -119,23 +120,59 @@ $(function() {
             //recorremos la lista de carreras (los items almacenados en localStorage)
             for (var pos = 0; pos < vectorCarreras.length; pos++) {
                 //agregamos una nueva fila con los datos de la carrera
-                $objCuerpoTablaCarreras.append(
-                        $('<tr>').append(
-                        $('<td>', {//fila con el codigo de la carrera
-                            text: vectorCarreras[pos].codigoCarrera,
-                            align: 'left'
+                $objCuerpoTablaCarreras.append
+                        (
+                                $('<tr>').append
+                                (
+                                        $('<td>', {//fila con el codigo de la carrera
+                                            text: vectorCarreras[pos].codigoCarrera,
+                                            align: 'left'
 
-                        }),
-                        $('<td>', {//fila con el nombre de la carrera
-                            text: vectorCarreras[pos].nombreCarrera,
-                            align: 'left'
-                        }),
-                        $('<td>', {//fila con la sede
-                            text: vectorCarreras[pos].sede,
-                            align: 'left'
-                        })
-                        )
-                        );
+                                        }),
+                                        $('<td>', {//fila con el nombre de la carrera
+                                            text: vectorCarreras[pos].nombreCarrera,
+                                            align: 'left'
+                                        }),
+                                        $('<td>', {
+                                            text: vectorCarreras[pos].sede,
+                                            align: 'left'
+                                        }),
+                                        $('<td>', {//fila para las opciones
+                                            align: 'left',
+                                            width: 253
+                                        })
+                                        .append(
+                                                //agregamos a la fila el boton
+                                                $('<input>', {
+                                                    type: 'button',
+                                                    class: 'clsEliminarCarrera',
+                                                    value: 'Eliminar',
+                                                    'data-carrera': vectorCarreras[pos].codigoCarrera,
+                                                    id: vectorCarreras[pos].codigoCarrera
+                                                })
+                                                )
+                                        .append(
+                                                //agregamos a la fila el boton
+                                                $('<input>', {
+                                                    type: 'button',
+                                                    class: 'clsEditarCarrera',
+                                                    value: 'Editar',
+                                                    'data-carrera': vectorCarreras[pos].codigoCarrera,
+                                                    id: vectorCarreras[pos].codigoCarrera
+                                                })
+                                                )
+                                        .append(
+                                                //agregamos a la fila el boton
+                                                $('<input>', {
+                                                    type: 'button',
+                                                    class: 'clsDetallesCarrera',
+                                                    value: 'Ver detalles',
+                                                    'data-carrera': vectorCarreras[pos].codigoCarrera,
+                                                    id: vectorCarreras[pos].codigoCarrera
+                                                })
+                                                )
+                                        )
+                                );
             }
         }
     };
@@ -151,127 +188,108 @@ $(function() {
         $('#txtCodCarreraEditar').va("").focus();
         $('#txtNombreCarreraEditar').val("");
     };
-    //Creamos un evento de click
-    $("#btnVerDetallesCarrera").bind("click", function() {
-        //Creamos un vector y lo cargamos con todos los registros de las carreras
-        var vectorCarreraDetalles = JSON.parse(localStorage.getItem('Carrera'));
-        //Creamos una variable para crea una copia del datos digitado en el TextBox
-        var $txtCodigoDetallar = $('#txtVerDetallesCarrera');
-        //Creamos un variable y guardamos el dato proveniente del TextBox
-        var strCodigoDetallar = $.trim($txtCodigoDetallar.val());
-        //Validamos si el vector que intentamos cargar tiene datos registrados
-        if ((vectorCarreraDetalles === null) || (vectorCarreraDetalles.length === 0))
+
+    $('.clsEliminarCarrera').live('click', function() {
+        var dato = $(this).data();
+        var srtDato = [dato];
+        var vectorCarreraEliminar = JSON.parse(localStorage.getItem('Carrera'));
+        //Recorremos el arreglo que almacena toda la lista de las carrera
+        for (var pos = 0; pos < vectorCarreraEliminar.length; pos++)
         {
-            //En caso de no tener datos expulsamos un model informando
-            $('#mensajecarreraresultado').modal
-                    (
-                            {
-                                show: 'true'
-                            }
-                    );
-        } 
-        //En caso de tener registros almacenados
-    else {
-        //Recorremos el vector cargado con los datos de todos los registros
-            for (var pos = 0; pos < vectorCarreraDetalles.length; pos++)
+            //Validamos si el id del boton corresponde al codigo de alguna carrera registrada
+            if (((srtDato[0].carrera).toString()) === vectorCarreraEliminar[pos].codigoCarrera)
             {
-                //Validamos si el dato que proviene es igual a unos de los registros almacenados
-                if (strCodigoDetallar === vectorCarreraDetalles[pos].codigoCarrera)
-                {
-                    //En caso de exister tal registros expulsamos un model con los datos encontrados
-                    $('#detallecarrera').modal
-                            (
-                                    {
-                                        show: 'true'
-                                    }
-                            );
-                    $('#txtCodCarreraDetallar').val(vectorCarreraDetalles[pos].codigoCarrera);
-                    $('#txtNombreCarreraDetallar').val(vectorCarreraDetalles[pos].nombreCarrera);
-                    $('#txtSedeDetallar').val(vectorCarreraDetalles[pos].sede);
-                    break;
-                } 
-                //En caso de no encontrar coincidencias
-                else
-                {
-                    //Expulsamos un model informando de la inesxistencia
-                    $('#mensajecarreraresultado').modal
-                            (
-                                    {
-                                        show: 'true'
-                                    }
-                            );
-                }
+                //Borramos el contenido del vector en caso de haberse encontrado
+                delete vectorCarreraEliminar[pos];
+                //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
+                //nonde se le envia por parametro una funcion
+                vectorCarreraEliminar = vectorCarreraEliminar.filter(function(n) {
+                    //Validamos y retornamos el valor
+                    return n !== undefined;
+                });
+                //Le enviamos o guardamos los datos con el dato eliminado
+                localStorage.setItem('Carrera', JSON.stringify(vectorCarreraEliminar));
+                //Envocamos al metodo para actualizar la tabla con dato borrado
+                $.mostrarListaDeCarreras();
+                //Enviamos una alerta informando de la satisfactoria eliminación
+                alert('La carrera se ha eliminado satisfactoriamente');
+                //Frenamos el ciclo para ahorarnos micromilesimas de segundo
+                break;
             }
         }
     });
-    //Funcion encargada de eliminar el codigo de la carrera ingresado en el respectivo TextBox
-    $("#btnEliminarCarrera").bind("click", function() {
-        //Creamos un vector para que contenga los datos de las carreras
-        var vectorCarreraEliminar = JSON.parse(localStorage.getItem('Carrera'));
-        //Creamos un objeto que va a contener el dato del TextBox
-        var $txtCodigoCarrera = $('#txtEliminarCarrera');
-        //Creamos una variable y automaticamente le asignamos el valor de la variable anterior
-        var strTxtCodigoCarrera = $.trim($txtCodigoCarrera.val());
-        if (strTxtCodigoCarrera === "") {
-            alert('No se ha ingresado ningún datos a eliminar.');
-        } else {
-            //Creamos un ciclo para recorrer el vector
-            for (var pos = 0; pos < vectorCarreraEliminar.length; pos++)
+
+    //Creamos un evento de click
+    $(".clsDetallesCarrera").live("click", function() {
+        var dato = $(this).data();
+        var srtDato = [dato];
+        //Creamos un vector y lo cargamos con todos los registros de las carreras
+        var vectorCarreraDetalles = JSON.parse(localStorage.getItem('Carrera'));
+        //Recorremos el vector cargado con los datos de todos los registros
+        for (var pos = 0; pos < vectorCarreraDetalles.length; pos++)
+        {
+            //Validamos si el dato que proviene es igual a unos de los registros almacenados
+            if (((srtDato[0].carrera).toString()) === vectorCarreraDetalles[pos].codigoCarrera)
             {
-                //Validamos si en alguna posicion del vector es igual al valor que contiene el TextBox
-                if (vectorCarreraEliminar[pos].codigoCarrera === strTxtCodigoCarrera)
-                {
-                    //Borramos el contenido del vector en caso de haberse encontrado
-                    delete vectorCarreraEliminar[pos];
-                    //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
-                    //nonde se le envia por parametro una funcion
-                    vectorCarreraEliminar = vectorCarreraEliminar.filter(function(n) {
-                        //Validamos y retornamos el valor
-                        return n !== undefined;
-                    });
-                    //Le enviamos o guardamos los datos con el dato eliminado
-                    localStorage.setItem('Carrera', JSON.stringify(vectorCarreraEliminar));
-                    //Envocamos al metodo para actualizar la tabla con dato borrado
-                    $.mostrarListaDeCarreras();
-                    //Enviamos una alerta informando de la satisfactoria eliminación
-                    $('#txtEliminarCarrera').val("");
-                    alert('La carrera se ha eliminado satisfactoriamente');
-                    //Frenamos el ciclo para ahorarnos micromilesimas de segundo
-                    break;
-                }
+                //En caso de exister tal registros expulsamos un model con los datos encontrados
+                $('#detallecarrera').modal
+                        (
+                                {
+                                    show: 'true'
+                                }
+                        );
+                $('#txtCodCarreraDetallar').val(vectorCarreraDetalles[pos].codigoCarrera);
+                $('#txtNombreCarreraDetallar').val(vectorCarreraDetalles[pos].nombreCarrera);
+                $('#txtSedeDetallar').val(vectorCarreraDetalles[pos].sede);
+                break;
             }
         }
     });
     //Esta funcion se encarga de la editacion de algun registro deseado
-    $("#btnEditarCarrera").bind("click", function(eEvento) {
-        //evitamos que el form se envie (para que no recargue la pagina)
-        eEvento.preventDefault();
-        //obtenemos una "copia" de los campos de texto
+    $(".clsEditarCarrera").live("click", function() {
+        var dato = $(this).data();
+        var srtDato = [dato];
+        var vectorCarreraEditar = JSON.parse(localStorage.getItem('Carrera'));
+        for (var pos = 0; pos < vectorCarreraEditar.length; pos++)
+        {
+            //Validamos si el codigo de la carrera coincide con la del campo del vector
+            if (vectorCarreraEditar[pos].codigoCarrera === ((srtDato[0].carrera).toString()))
+            {
+                $('#editarCarrera').modal
+                        (
+                                {
+                                    show: 'true'
+                                }
+                        );
+                //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
+                $('#txtCodCarreraEditar').val(vectorCarreraEditar[pos].codigoCarrera);
+                $('#txtNombreCarreraEditar').val(vectorCarreraEditar[pos].nombreCarrera);
+            }
+        }
+    });
+    $("#btnEditarCarrera").bind("click", function() {
         var $txtCodigoCarrera = $('#txtCodCarreraEditar');
         var $txtNombreCarrera = $('#txtNombreCarreraEditar');
-        //Utilizamos Trim para eliminar los espacios en blanco del inicio y el final del TextBox
-        //Tambien verificamos si los datos provenientes estan vacios
+        var strSede = document.getElementById('cmbSedeEditar').value;
         if ($.trim($txtCodigoCarrera.val()) !== '' && $.trim($txtNombreCarrera.val()) !== '') {
             //Creamos variables para almacenar los datos provenientes de los TextBox
-            var strCodigoCarreraEditar = $.trim($txtCodigoCarrera.val());
-            var strNombreCarreraEditar = $.trim($txtNombreCarrera.val());
-            var strSedeEditar = document.getElementById('cmbSedeEditar').value;
+            var strCodigoCarrera = $.trim($txtCodigoCarrera.val());
+            var strNombreCarrera = $.trim($txtNombreCarrera.val());
             var vectorCarreraEditar = JSON.parse(localStorage.getItem('Carrera'));
             //Creamos una variable inicializada en cero para darnos cuenta de si modifico o no
             var modificado = 0;
             //Verificamos si el vector tiene datos
             if (vectorCarreraEditar !== null) {
-                debugger;
-                //Recorremos el vector con los datos recogidos
+                //Recorremos el vector con los datos cargados del LocalStorage
                 for (var pos = 0; pos < vectorCarreraEditar.length; pos++)
                 {
-                    //Validamos si el codigo de la carrera coincide con la del campo del vector
-                    if (vectorCarreraEditar[pos].codigoCarrera === strCodigoCarreraEditar)
+                    //Validamos si el codigo coincide con la del campo del vector
+                    if (vectorCarreraEditar[pos].codigoCarrera === strCodigoCarrera)
                     {
                         //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
-                        vectorCarreraEditar[pos].codigoCarrera = strCodigoCarreraEditar;
-                        vectorCarreraEditar[pos].nombreCarrera = strNombreCarreraEditar;
-                        vectorCarreraEditar[pos].sede = strSedeEditar;
+                        vectorCarreraEditar[pos].codigoCarrera = strCodigoCarrera;
+                        vectorCarreraEditar[pos].nombreCarrera = strNombreCarrera;
+                        vectorCarreraEditar[pos].sede = strSede;
                         //Guardamos los cambios en el LocalStorage
                         localStorage.setItem('Carrera', JSON.stringify(vectorCarreraEditar));
                         //Con este metodo actualizamos los datos en la tabla
@@ -290,10 +308,10 @@ $(function() {
                 if (modificado === 0)
                 {
                     //Limpiamos los TextBox con el siguiente metodo
-                    $.limpiarCamposDelFormularioCarrera();
+                    $.limpiarCamposDelFormularioEstudiante();
                     debugger;
                     //Enviamos una alerta informando de que no se encontro ningun codigo
-                    alert('No se ha encontrado ningún registro asociado al siguiente código: ' + strCodigoCarreraEditar);
+                    alert('No se ha encontrado ningún registro asociado al siguiente número de cédula: ' + strCedulaEstudiante);
                 }
             } else
             {
@@ -308,6 +326,7 @@ $(function() {
             //en caso de que algun campo este vacio mandamos una alerta de los campos faltantes
             alert('Faltan datos importantes, por favor corrija para continuar.');
         }
+
     });
     //evento submit del formulario
     $("#btnAgregarCarrera").bind("click", function(eEvento) {
@@ -380,7 +399,7 @@ $(function() {
                     $('<tr>').append(
                     $('<td>', {
                         text: 'No se han registrado estudiantes',
-                        colspan: 5,
+                        colspan: 6,
                         align: 'center'
                     })
                     )
@@ -420,9 +439,44 @@ $(function() {
                             $('<td>', {//Columna del nivel de ingles del estudiante
                                 text: vectorEstudiantes[pos].nivelIngles,
                                 align: 'left'
+                            }),
+                            $('<td>', {//fila para las opciones
+                                align: 'left',
+                                width: 253
                             })
+                            .append(
+                                    //agregamos a la fila el boton
+                                    $('<input>', {
+                                        type: 'button',
+                                        class: 'clsEliminarEstudiante',
+                                        value: 'Eliminar',
+                                        'data-estudiante': vectorEstudiantes[pos].cedulaEstudiante,
+                                        id: vectorEstudiantes[pos].cedulaEstudiante
+                                    })
+                                    )
+                            .append(
+                                    //agregamos a la fila el boton
+                                    $('<input>', {
+                                        type: 'button',
+                                        class: 'clsEditarEstudiante',
+                                        value: 'Editar',
+                                        'data-estudiante': vectorEstudiantes[pos].cedulaEstudiante,
+                                        id: vectorEstudiantes[pos].cedulaEstudiante
+                                    })
+                                    )
+                            .append(
+                                    //agregamos a la fila el boton
+                                    $('<input>', {
+                                        type: 'button',
+                                        class: 'clsDetallesEstudiante',
+                                        value: 'Ver detalles',
+                                        'data-estudiante': vectorEstudiantes[pos].cedulaEstudiante,
+                                        id: vectorEstudiantes[pos].cedulaEstudiante
+                                    })
+                                    )
                             )
                             );
+
                 }
             }
         }
@@ -484,56 +538,28 @@ $(function() {
             $('#txtApellidosEstudiante').val("");
         }
     });
-    //Creamos un evento de click para eliminar el estudiante
-    $("#btnEliminarEstudiante").bind("click", function() {
-
-        //Creamos un vector para que contenga los datos de los estudiantes
-        var vectorEstudianteEliminar = JSON.parse(localStorage.getItem('Estudiante'));
-        //Creamos un objeto que va a contener el dato del TextBox
-        var $txtCedulaEstudiante = $('#txtEliminarEstudiante');
-        //Creamos una variable y automaticamente le asignamos el valor de la variable anterior
-        var strTxtCedulaEstudiante = $.trim($txtCedulaEstudiante.val());
-        //Validamos si el campo se encuentra vacio
-        if (strTxtCedulaEstudiante !== "") {
-            //Preguntamos si el vector cargado anteriormente esta vacio o tiene mas de un dato
-            if (vectorEstudianteEliminar !== null && vectorEstudianteEliminar.length > 0) {
-                //Creamos un ciclo para recorrer el vector cargado con los datos del LocalStorage
-                for (var pos = 0; pos < vectorEstudianteEliminar.length; pos++)
-                {
-                    //Validamos si en alguna posicion del vector es igual al valor que contiene el TextBox
-                    if (vectorEstudianteEliminar[pos].cedulaEstudiante === strTxtCedulaEstudiante)
-                    {
-                        //Borramos el contenido del vector en caso de haberse encontrado
-                        delete vectorEstudianteEliminar[pos];
-                        //Actualizamos el vector igualandola a lo que retorne la funcion.
-                        vectorEstudianteEliminar = vectorEstudianteEliminar.filter(function(n) {
-                            //Validamos y retornamos el valor
-                            return n !== undefined;
-                        });
-                        //Le enviamos o guardamos los datos con el dato eliminado
-                        localStorage.setItem('Estudiante', JSON.stringify(vectorEstudianteEliminar));
-                        //Envocamos al metodo para actualizar la tabla con dato borrado
-                        $.mostrarListaDeEstudiante();
-                        $('#txtEliminarEstudiante').val("");
-                        //Enviamos una alerta informando de la satisfactoria eliminación
-                        alert('El estudiante se ha eliminado satisfactoriamente');
-                        //Frenamos el ciclo para ahorarnos micromilesimas de segundo
-                        break;
-                    }
-                }
-            }
-            //En caso de encontrarse vacio
-            else
-            {
-                //Se le envia un mensaje al usuario avisandole la inexistencia de los registros
-                alert('No existen registros en la base de datos');
-            }
-        }
-        //En caso de haber campos vacios
-        else
+        //Esta funcion se encarga de la editacion de algun registro deseado
+    $(".clsEditarEstudiante").live("click", function() {
+        var dato = $(this).data();
+        var srtDato = [dato];
+        debugger;
+        var vectorEstudianteEditar = JSON.parse(localStorage.getItem('Estudiante'));
+        for (var pos = 0; pos < vectorEstudianteEditar.length; pos++)
         {
-            //Se le envia un mensaje informandole de que hay campos vacios
-            alert('Por favor ingrese el número de cedula a eliminar');
+            //Validamos si el codigo de la carrera coincide con la del campo del vector
+            if (vectorEstudianteEditar[pos].cedulaEstudiante === ((srtDato[0].estudiante).toString()))
+            {
+                $('#editarEstudiante').modal
+                        (
+                                {
+                                    show: 'true'
+                                }
+                        );
+                //Remplazamos los valores encontrados por los nuevos escritos en el TextBox
+                $('#txtCedulaEstudianteEditar').val(vectorEstudianteEditar[pos].cedulaEstudiante);
+                $('#txtNombreEstudianteEditar').val(vectorEstudianteEditar[pos].nombreEstudiante);
+                $('#txtApellidosEstudianteEditar').val(vectorEstudianteEditar[pos].apellidosEstudiante);
+            }
         }
     });
     //Creamos un evento de click para editar al estudiante
@@ -606,62 +632,64 @@ $(function() {
             alert('Faltan datos importantes, por favor corrija para continuar.');
         }
     });
-    //Creamos un evento click
-    $("#btnVerDetallesEstudiante").bind("click", function() {
-        //Creamos un vector y lo cargamos con todos los datos de los estudiantes
-        var vectorEstudianteDetalles = JSON.parse(localStorage.getItem('Estudiante'));
-        //Creamos una variable para guardar el dato proveniente del TextBox
-        var $txtCedulaDetallar = $('#txtVerDetallesEstudiante');
-        //Creamos una variable para guardar una copia del campo de texto
-        //y utilizamos Trim() para eliminar los espacios en blanco del inicio y el final
-        var strCedulaDetallar = $.trim($txtCedulaDetallar.val());
-        //Validamos si el vector esta nulo o si tiene registros
-        if ((vectorEstudianteDetalles === null) || (vectorEstudianteDetalles.length === 0))
+    //Creamos un evento de click para eliminar el estudiante
+    $('.clsEliminarEstudiante').live('click', function() {
+        var dato = $(this).data();
+        var srtDato = [dato];
+        var vectorEstudianteEliminar = JSON.parse(localStorage.getItem('Estudiante'));
+        //Recorremos el arreglo que almacena toda la lista de las carrera
+        for (var pos = 0; pos < vectorEstudianteEliminar.length; pos++)
         {
-            //En caso de no tener registros expulsamos un modelo informando
-            $('#mensajeEstudianteResultado').modal
-                    (
-                            {
-                                show: 'true'
-                            }
-                    );
-        }
-        //En caso de tener registros
-        else
-        {
-            //Recorremos el vector cargado con todos los datos de los estudiantes
-            for (var pos = 0; pos < vectorEstudianteDetalles.length; pos++)
+            //Validamos si el id del boton corresponde al codigo de alguna carrera registrada
+            if (((srtDato[0].estudiante).toString()) === vectorEstudianteEliminar[pos].cedulaEstudiante)
             {
-                //Validamos si la cedula ingresa esta dentro de los registros
-                if (strCedulaDetallar === vectorEstudianteDetalles[pos].cedulaEstudiante)
-                {
-                    //Si existe expulsamos un model para mostrar los datos del estudiante
-                    $('#detalleestudiante').modal
-                            (
-                                    {
-                                        show: 'true'
-                                    }
-                            );
-                    $('#txtCedulaEstudianteDetallar').val(vectorEstudianteDetalles[pos].cedulaEstudiante);
-                    $('#txtNombreEstudianteDetallar').val(vectorEstudianteDetalles[pos].nombreEstudiante);
-                    $('#txtApellidosEstudianteDetallar').val(vectorEstudianteDetalles[pos].apellidosEstudiante);
-                    $('#txtNivelInglesDetallar').val(vectorEstudianteDetalles[pos].nivelIngles);
-                    break;
-                }
-                //En caso de no encontrar coincidencias
-                else
-                {
-                    //Expulsamos un model
-                    $('#mensajeEstudianteResultado').modal
-                            (
-                                    {
-                                        show: 'true'
-                                    }
-                            );
-                }
+                //Borramos el contenido del vector en caso de haberse encontrado
+                delete vectorEstudianteEliminar[pos];
+                //Se le asigna el nuevo valor despues de la eliminacion del campo por medio de una funcion
+                //nonde se le envia por parametro una funcion
+                vectorEstudianteEliminar = vectorEstudianteEliminar.filter(function(n) {
+                    //Validamos y retornamos el valor
+                    return n !== undefined;
+                });
+                //Le enviamos o guardamos los datos con el dato eliminado
+                localStorage.setItem('Estudiante', JSON.stringify(vectorEstudianteEliminar));
+                //Envocamos al metodo para actualizar la tabla con dato borrado
+                $.mostrarListaDeEstudiante();
+                //Enviamos una alerta informando de la satisfactoria eliminación
+                alert('El estudiante se ha eliminado satisfactoriamente');
+                //Frenamos el ciclo para ahorarnos micromilesimas de segundo
+                break;
             }
         }
     });
+    //Creamos un evento de click
+    $(".clsDetallesEstudiante").live("click", function() {
+        var dato = $(this).data();
+        var srtDato = [dato];
+        //Creamos un vector y lo cargamos con todos los registros de las carreras
+        var vectorEstudianteDetalles = JSON.parse(localStorage.getItem('Estudiante'));
+        //Recorremos el vector cargado con los datos de todos los registros
+        for (var pos = 0; pos < vectorEstudianteDetalles.length; pos++)
+        {
+            //Validamos si el dato que proviene es igual a unos de los registros almacenados
+            if (((srtDato[0].estudiante).toString()) === vectorEstudianteDetalles[pos].cedulaEstudiante)
+            {
+                //En caso de exister tal registros expulsamos un model con los datos encontrados
+                $('#detalleestudiante').modal
+                        (
+                                {
+                                    show: 'true'
+                                }
+                        );
+                $('#txtCedulaEstudianteDetallar').val(vectorEstudianteDetalles[pos].cedulaEstudiante);
+                $('#txtNombreEstudianteDetallar').val(vectorEstudianteDetalles[pos].nombreEstudiante);
+                $('#txtApellidosEstudianteDetallar').val(vectorEstudianteDetalles[pos].apellidosEstudiante);
+                $('#txtNivelInglesDetallar').val(vectorEstudianteDetalles[pos].nivelIngles);
+                $('#txtCarreraEstudianteDetallar').val(vectorEstudianteDetalles[pos].carreraEstudiante);
+                break;
+            }
+        }
+    })
     //Envocamos al metodo para cuando cargue la pagina, tambien cargue la tabla con los datos del estudiante
     $.mostrarListaDeEstudiante();
 });
@@ -879,10 +907,10 @@ $(function() {
                         alert('El usuario se ha eliminado satisfactoriamente');
                         //Frenamos el ciclo para ahorarnos micromilesimas de segundo
                         break;
-                    }else
+                    } else
                     {
                         $('#txtEliminarUsuario').val("");
-                        alert('No se ha encontrado el usuario con el siguiente dato: '+strTxtCedulaUsuario);
+                        alert('No se ha encontrado el usuario con el siguiente dato: ' + strTxtCedulaUsuario);
                     }
                 }
             }
